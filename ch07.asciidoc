@@ -135,7 +135,7 @@ There ((("Number.isNaN", startref="nisn7")))is a function, which was already in 
 
 ==== Number.isFinite
 
-The rarely promoted `isFinite` method has been available since ES3. It returns a boolean value indicating whether the provided `value` matches none of: `Infinity`, `-Infinity`, and `NaN`.
+The rarely promoted `isFinite` method has been available since ES3. It returns a Boolean value indicating whether the provided `value` matches none of `Infinity`, `-Infinity`, and `NaN`.
 
 The `isFinite` method ((("isFinite")))coerces values through `Number(value)`, while `Number.isFinite` ((("Number.isFinite", id="nisf7")))doesn't. This means that values that can be coerced into non-`NaN` numbers will be considered finite numbers by ++isNumber++—even though they aren't explicit numbers.
 
@@ -177,7 +177,7 @@ Number.isFinite('10')
 // <- false, because '10' is not a number
 ----
 
-Creating a ponyfillpass:[<span data-type="footnote" id="ponyfills">Like polyfills, <a href="https://mjavascript.com/out/ponyfills">ponyfills</a> are user-land implementations of features that aren't available in every JavaScript runtime. While polyfills try to patch the runtime environment so that it behaves as if the feature was indeed available on the runtime, ponyfills implement the missing functionality as standalone modules that don't pollute the runtime environment. This has the benefit of not breaking expectations third-party libraries (that don't know about your polyfill) may have about the environment.</span>] for `Number.isFinite` would involve returning `false` for nonnumeric values, effectively turning off the type-casting feature, and then calling `isFinite` on the input ((("Number.isFinite", startref="nisf7")))value.
+Creating a ponyfill for `Number.isFinite` would involve returning `false` for nonnumeric values, effectively turning off the type-casting feature, and then calling `isFinite` on the input ((("Number.isFinite", startref="nisf7")))value.
 
 [source,javascript]
 ----
@@ -517,7 +517,7 @@ Let's get right to it.
 
 ==== Math.sign
 
-Many languages ((("Math.sign")))have a ((("sign")))mathematical `sign` method that returns a vector (`-1`, `0`, or `1`) representation for the sign of the provided input. JavaScript's `Math.sign` method does exactly that. However, the JavaScript flavor of this method has two more possible return values: `-0`, and `NaN`. Check out the examples in the following code snippet.
+Many languages ((("Math.sign")))have a ((("sign")))mathematical `sign` method that returns a vector (`-1`, `0`, or `1`) representation for the sign of the provided input. JavaScript's `Math.sign` method does exactly that. However, the JavaScript flavor of this method has two more possible return values: `-0` and `NaN`. Check out the examples in the following code snippet.
 
 [source,javascript]
 ----
@@ -722,7 +722,7 @@ Math.hypot(1, 2, 3)
 // <- 3.741657386773941, the square root of (1*1 + 2*2 + 3*3)
 ----
 
-We could ponyfill `Math.hypot` by performing these operations manually. We can use `Math.sqrt` to compute the square root and `Array#reduce`, combined with the spread operator, to sum the squares.pass:[<span data-type="footnote" id="native-arrays">You can go deeper into functional <code>Array</code> methods by reading the article, <a href="https://mjavascript.com/out/native-arrays">"Fun with Native Arrays"</a>.</span>]
+We could ponyfill `Math.hypot` by performing these operations manually. We can use `Math.sqrt` to compute the square root and `Array#reduce`, combined with the spread operator, to sum the squares.pass:[<span data-type="footnote" id="native-arrays">You can go deeper into functional <code>Array</code> methods by reading the article <a href="https://mjavascript.com/out/native-arrays">"Fun with Native Arrays"</a>.</span>]
 
 [source,javascript]
 ----
@@ -787,7 +787,7 @@ Besides the template literal syntax, strings got a number of new methods in ES6.
 
 ==== String#startsWith
 
-Prior to ES6, ((("StringstartsWith", id="ssw7")))whenever we wanted to check if a string begins with a certain other string, we'd use the `String#indexOf` method, ((("StringindexOfx")))as shown in the following code snippet. A result of `0` means that the string starts with the provided value.
+Prior to ES6, ((("String#startsWith", id="ssw7")))whenever we wanted to check if a string begins with a certain other string, we'd use the `String#indexOf` method, ((("String#indexOf")))as shown in the following code snippet. A result of `0` means that the string starts with the provided value.
 
 [source,javascript]
 ----
@@ -847,7 +847,7 @@ We could use the `startIndex` ((("startIndex")))parameter for `indexOf` to get a
 // <- true
 ----
 
-Instead of keeping all of these string searching implementation details in your head and writing code that's most concerned with how to search, as opposed to what is being searched, we could use `String#startsWith` passing in the optional `startIndex` parameter as ((("StringstartsWithx", startref="ssw7")))well.
+Instead of keeping all of these string searching implementation details in your head and writing code that's most concerned with how to search, as opposed to what is being searched, we could use `String#startsWith` passing in the optional `startIndex` parameter as ((("String#startsWith", startref="ssw7")))well.
 
 [source,javascript]
 ----
@@ -857,7 +857,7 @@ Instead of keeping all of these string searching implementation details in your 
 
 ==== String#endsWith
 
-This method ((("StringendsWithx")))mirrors `String#startsWith` in the same way that `String#lastIndexOf` mirrors `String#indexOf`. It tells us whether a string ends with another string.
+This method ((("String#endsWith")))mirrors `String#startsWith` in the same way that `String#lastIndexOf` mirrors `String#indexOf`. It tells us whether a string ends with another string.
 
 [source,javascript]
 ----
@@ -883,7 +883,7 @@ As the opposite of `String#startsWith`, there's a position index that indicates 
 
 ==== String#includes
 
-You can use `String#includes` to figure ((("Stringincludesx")))out whether a string contains another one, as shown in the following piece of code.
+You can use `String#includes` to figure ((("String#includes")))out whether a string contains another one, as shown in the following piece of code.
 
 [source,javascript]
 ----
@@ -895,7 +895,7 @@ You can use `String#includes` to figure ((("Stringincludesx")))out whether a str
 // <- false
 ----
 
-This is equivalent to the ES5 use case of `String#indexOf` where ((("StringindexOfx")))we'd test the result against `-1`, checking to see whether the search string was anywhere to be found, as demonstrated in the next code snippet.
+This is equivalent to the ES5 use case of `String#indexOf` where ((("String#indexOf")))we'd test the result against `-1`, checking to see whether the search string was anywhere to be found, as demonstrated in the next code snippet.
 
 [source,javascript]
 ----
@@ -919,7 +919,7 @@ Let's move onto something that's not just an `String#indexOf` alternative.
 
 ==== String#repeat
 
-This handy ((("Stringrepeatx", id="sr7")))method allows you to repeat a string `count` times.
+This handy ((("String#repeat", id="sr7")))method allows you to repeat a string `count` times.
 
 [source,javascript]
 ----
@@ -1011,7 +1011,7 @@ c`, 2)
 
 ==== String Padding and Trimming
 
-At ((("Stringrepeatx", startref="sr7")))((("strings", "padding and trimming", id="s7pat")))the time of this writing, there are two new string padding methods slated for publication in ES2017: `String#padStart` ((("StringpadStartx", id="sps7")))((("StringpadEndx", id="spe7")))and `String#padEnd`. Using these methods, we wouldn't have to implement something like `indent` in the previous code snippet. When performing string manipulation, we often want to pad a string so that it's formatted consistently with a style we have in mind. This can be useful when formatting numbers, currency, HTML, and in a variety of other cases usually involving monospaced text.
+At ((("String#repeat", startref="sr7")))((("strings", "padding and trimming", id="s7pat")))the time of this writing, there are two new string padding methods slated for publication in ES2017: `String#padStart` ((("String#padStart", id="sps7")))((("String#padEnd", id="spe7")))and `String#padEnd`. Using these methods, we wouldn't have to implement something like `indent` in the previous code snippet. When performing string manipulation, we often want to pad a string so that it's formatted consistently with a style we have in mind. This can be useful when formatting numbers, currency, HTML, and in a variety of other cases usually involving monospaced text.
 
 Using `padStart`, we will ((("padStart")))specify the desired length for the target string and the padding string, which defaults to a single space character. If the original string is at least as long as the specified length, `padStart` will result in a null operation, returning the original string unchanged.
 
@@ -1066,7 +1066,7 @@ The `padEnd` method ((("padEnd")))has a similar API, but it adds the padding at 
 '1.23'.padEnd(7, 'abcdef') // <- '1.23abc'
 ----
 
-At the time of this writing, there's a proposal for string trimming in stage 2, containing the `String#trimStart` and `String#trimEnd` ((("StringtrimStartx")))((("StringtrimEndx")))methods. Using `trimStart` removes any whitespace from the beginning of a string, while using `trimEnd` ((("trimStart")))((("trimEnd")))removes any whitespace from the end of a string.
+At the time of this writing, there's a proposal for string trimming in stage 2, containing the `String#trimStart` and `String#trimEnd` ((("String#trimStart")))((("String#trimEnd")))methods. Using `trimStart` removes any whitespace from the beginning of a string, while using `trimEnd` ((("trimStart")))((("trimEnd")))removes any whitespace from the end of a string.
 
 [source,javascript]
 ----
@@ -1076,13 +1076,13 @@ At the time of this writing, there's a proposal for string trimming in stage 2, 
 // <- '   this should be right-aligned'
 ----
 
-Let's switch protocols and learn ((("StringpadStartx", startref="sps7")))((("StringpadEndx", startref="spe7")))((("strings", "padding and trimming", startref="s7pat")))about Unicode.
+Let's switch protocols and learn ((("String#padStart", startref="sps7")))((("String#padEnd", startref="spe7")))((("strings", "padding and trimming", startref="s7pat")))about Unicode.
 
 ==== Unicode
 
 JavaScript strings ((("Unicode", id="u7")))((("strings", "and Unicode", id="s7au")))are represented using UTF-16 code units.pass:[<span data-type="footnote" id="unicode-encodings">Learn more about <a href="https://mjavascript.com/out/unicode-encodings">UCS-2, UCS-4, UTF-16, and UTF-32</a>.</span>] Each code unit can be used to represent a code point in the `[U+0000, U+FFFF]` range--also known as the ((("BMP (basic multilinual plane)")))BMP, short for Basic Multilingual Plane. You can represent individual code points in the BMP plane using the `'\u3456'` syntax. You could also represent code units in the `[U+0000, U+0255]` range using the `\x00..\xff` notation. For instance, `'\xbb'` represents `'»'`, the `U+00BB` code point, as you can also verify by doing `String.fromCharCode(0xbb)`.
 
-For code points beyond `U+FFFF`, you'd represent them as a surrogate pair. That is to say, two contiguous code units. For instance, the horse emoji (pass:[<code><img src="images/1f40e.png" style="width: 12px" alt="🐎" data-emoji-embed="🐎" /></code>]) code point is represented with the `'\ud83d\udc0e'` contiguous code units. In ES6 notation you can also represent code points using the `'\u{1f40e}'` notation (that example is also the horse emoji).
+For code points beyond `U+FFFF`, you'd represent them as a surrogate pair. That is to say, two contiguous code units. For instance, the horse emoji (pass:[<code><img src="images/1f40e.png" class="emoji" alt="horse emoji" data-emoji-embed="running horse" /></code>]) code point is represented with the `'\ud83d\udc0e'` contiguous code units. In ES6 notation you can also represent code points using the `'\u{1f40e}'` notation (that example is also the horse emoji).
 
 Note that the internal representation hasn't changed, so there are still two code units behind that single code point. In fact, `'\u{1f40e}'.length` evaluates to `2`, one for each code unit.
 
@@ -1090,7 +1090,7 @@ The `'\ud83d\udc0e\ud83d\udc71\u2764'` string, found in the next code snippet, e
 
 ++++
 <pre data-type="programlisting" data-code-language="javascript">'\ud83d\udc0e\ud83d\udc71\u2764'
-// &lt;- '<img src="images/1f40e.png" alt="🐎" data-emoji-embed="🐎" /><img src="images/1f471.png" alt="👱" data-emoji-embed="👱" /><img src="images/2764.png" alt="❤️" data-emoji-embed="❤️" />'</pre>
+// &lt;- '<img src="images/1f40e.png" alt="horse" data-emoji-embed="running horse" /><img src="images/1f471.png" alt="man" data-emoji-embed="smiling idiot" /><img src="images/2764.png" alt="heart" data-emoji-embed="heart" />'</pre>
 ++++
 
 While that string consists of five code units, we know that the length should really be 3--as there are only three emoji.
@@ -1098,20 +1098,20 @@ While that string consists of five code units, we know that the length should re
 ++++
 <pre data-type="programlisting" data-code-language="javascript">'\ud83d\udc0e\ud83d\udc71\u2764'.length
 // &lt;- 5
-'<img src="images/1f40e.png" alt="🐎" data-emoji-embed="🐎" /><img src="images/1f471.png" alt="👱" data-emoji-embed="👱" /><img src="images/2764.png" alt="❤️" data-emoji-embed="❤️" />'.length
+'<img src="images/1f40e.png" alt="horse" data-emoji-embed="running horse" /><img src="images/1f471.png" alt="man" data-emoji-embed="smiling idiot" /><img src="images/2764.png" alt="heart" data-emoji-embed="heart" />'.length</pre>
 ++++
 
 Counting code points before ES6 was tricky, as the language didn't make an effort to help in the Unicode department. Take for instance `Object.keys`, as seen in the following code snippet. It returns five keys for our three-emoji string, because those three code points use five code units in total.
 
 ++++
-<pre data-type="programlisting" data-code-language="javascript">Object.keys('<img src="images/1f40e.png" alt="🐎" data-emoji-embed="🐎" /><img src="images/1f471.png" alt="👱" data-emoji-embed="👱" /><img src="images/2764.png" alt="❤️" data-emoji-embed="❤️" />')
+<pre data-type="programlisting" data-code-language="javascript">Object.keys('<img src="images/1f40e.png" alt="horse" data-emoji-embed="running horse" /><img src="images/1f471.png" alt="man" data-emoji-embed="smiling idiot" /><img src="images/2764.png" alt="heart" data-emoji-embed="heart" />')
 // &lt;- ['0', '1', '2', '3', '4']</pre>
 ++++
 
 If we now consider a `for` loop, we can observe more clearly how this is a problem. In the following example, we wanted to extract each individual emoji from the `text` string, but we got each code unit instead of the code points they form.
 
 ++++
-<pre data-type="programlisting" data-code-language="javascript">const text = '<img src="images/1f40e.png" alt="🐎" data-emoji-embed="🐎" /><img src="images/1f471.png" alt="👱" data-emoji-embed="👱" /><img src="images/2764.png" alt="❤️" data-emoji-embed="❤️" />'
+<pre data-type="programlisting" data-code-language="javascript">const text = '<img src="images/1f40e.png" alt="horse" data-emoji-embed="running horse" /><img src="images/1f471.png" alt="man" data-emoji-embed="smiling idiot" /><img src="images/2764.png" alt="heart" data-emoji-embed="heart" />'
 for (let i = 0; i &lt; text.length; i++) {
   console.log(text[i])
   // &lt;- '\ud83d'
@@ -1126,23 +1126,23 @@ Luckily for us, in ES6 strings adhere to the iterable protocol. We can use the s
 
 ==== String.prototype[Symbol.iterator]
 
-Given ((("String.prototypex", id="spsi7")))((("strings", "splitting into code points", id="s7sicp")))((("Unicode", "String.prototypex", id="u7spsi")))the problems with looping by code units, the iterables produced by the string iterator yield code points instead.
+Given ((("String.prototype[Symbol.iterator]", id="spsi7")))((("strings", "splitting into code points", id="s7sicp")))((("Unicode", "String.prototype[Symbol.iterator]", id="u7spsi")))the problems with looping by code units, the iterables produced by the string iterator yield code points instead.
 
 ++++
-<pre data-type="programlisting" data-code-language="javascript">for (const codePoint of '<img src="images/1f40e.png" alt="🐎" data-emoji-embed="🐎" /><img src="images/1f471.png" alt="👱" data-emoji-embed="👱" /><img src="images/2764.png" alt="❤️" data-emoji-embed="❤️" />') {
+<pre data-type="programlisting" data-code-language="javascript">for (const codePoint of '<img src="images/1f40e.png" alt="horse" data-emoji-embed="running horse" /><img src="images/1f471.png" alt="man" data-emoji-embed="smiling idiot" /><img src="images/2764.png" alt="heart" data-emoji-embed="heart" />') {
   console.log(codePoint)
-  // &lt;- '<img src="images/1f40e.png" alt="🐎" data-emoji-embed="🐎" />'
-  // &lt;- '<img src="images/1f471.png" alt="👱" data-emoji-embed="👱" />'
-  // &lt;- '<img src="images/2764.png" alt="❤️" data-emoji-embed="❤️" />'
+  // &lt;- '<img src="images/1f40e.png" alt="horse" data-emoji-embed="running horse" />'
+  // &lt;- '<img src="images/1f471.png" alt="man" data-emoji-embed="smiling idiot" />'
+  // &lt;- '<img src="images/2764.png" alt="heart" data-emoji-embed="heart" />'
 }</pre>
 ++++
 
-Measuring the length of a string in terms of code points, as we saw earlier, is impossible with `String#length`, because ((("Stringlengthx")))it counts code units instead. We can, however, use an iterator to split the string into its code points, like we did in the `for..of` example.
+Measuring the length of a string in terms of code points, as we saw earlier, is impossible with `String#length`, because ((("String#length")))it counts code units instead. We can, however, use an iterator to split the string into its code points, like we did in the `for..of` example.
 
 We could use the spread operator, which relies on the iterator protocol, to split a string into an array made up of its conforming code points and then pull that array's `length`, getting the correct code point count, as seen next.
 
 ++++
-<pre data-type="programlisting" data-code-language="javascript">[...'<img src="images/1f40e.png" alt="🐎" data-emoji-embed="🐎" /><img src="images/1f471.png" alt="👱" data-emoji-embed="👱" /><img src="images/2764.png" alt="❤️" data-emoji-embed="❤️" />'].length
+<pre data-type="programlisting" data-code-language="javascript">[...'<img src="images/1f40e.png" alt="horse" data-emoji-embed="running horse" /><img src="images/1f471.png" alt="man" data-emoji-embed="smiling idiot" /><img src="images/2764.png" alt="heart" data-emoji-embed="heart" />'].length
 // &lt;- 3</pre>
 ++++
 
@@ -1182,7 +1182,7 @@ Attempts to näively figure out the actual length by counting code points prove 
 // <- 16, should be 11
 ----
 
-As Unicode expert Mathias Bynens points out, splitting by code points isn't enough. Unlike surrogate pairs like the emojis we've used in our earlier examples, other grapheme clusters aren't taken into account by the string iterator.pass:[<span data-type="footnote" id="unicode-problem">I recommend you read <a href="https://mjavascript.com/out/unicode-mathias">JavaScript has a Unicode problem"</a> from Mathias Bynens. In the article, Mathias analyzes JavaScript's relationship with Unicode.</span>] In those cases we're out of luck, and have to fall back to regular expressions or utility libraries to correctly calculate ((("String.prototypex", startref="spsi7")))((("strings", "splitting into code points", startref="s7sicp")))((("Unicode", "String.prototypex", startref="u7spsi")))string length.
+As Unicode expert Mathias Bynens points out, splitting by code points isn't enough. Unlike surrogate pairs like the emojis we've used in our earlier examples, other grapheme clusters aren't taken into account by the string iterator.pass:[<span data-type="footnote" id="unicode-problem">I recommend you read <a href="https://mjavascript.com/out/unicode-mathias">"JavaScript has a Unicode problem"</a> from Mathias Bynens. In the article, Mathias analyzes JavaScript's relationship with Unicode.</span>] In those cases we're out of luck, and have to fall back to regular expressions or utility libraries to correctly calculate ((("String.prototype[Symbol.iterator]", startref="spsi7")))((("strings", "splitting into code points", startref="s7sicp")))((("Unicode", "String.prototype[Symbol.iterator]", startref="u7spsi")))string length.
 
 ==== A Proposal to Split Grapheme Segments
 
@@ -1205,13 +1205,13 @@ function getGraphemes(locale, text) {
 getGraphemes('es', 'Esto está bien bueno!')
 ----
 
-Using the segmenter proposal, we wouldn't have any trouble splitting strings containing emoji or other combining code units. You can learn more about the `Segmenter` proposal at https://mjavascript.com/out/segmenter.
+Using the https://mjavascript.com/out/segmenter[+Segmenter+] proposal, we wouldn't have any trouble splitting strings containing emoji or other combining code units. 
 
 Let's look at more Unicode-related methods introduced in ES6.
 
 ==== String#codePointAt
 
-We can use `String#codePointAt` to get the numeric representation of a code point at a given position in a string. Note that the expected start position is indexed by code unit, not by code point. In the following example we print the code points for each of the three emoji in our demo 'pass:[<code><img src="images/1f40e.png" style="width: 12px" alt="🐎" data-emoji-embed="🐎" /><img src="images/1f471.png" style="width: 12px" alt="👱" data-emoji-embed="👱" /><img src="images/2764.png" style="width: 12px" alt="❤️" data-emoji-embed="❤️" /></code>]' string.
+We can use `String#codePointAt` to ((("String#codePointAt", id="scpa7")))get the numeric representation of a code point at a given position in a string. Note that the expected start position is indexed by code unit, not by code point. In the following example we print the code points for each of the three emoji in our demo 'pass:[<code><img src="images/1f40e.png" class="emoji" alt="horse" data-emoji-embed="running horse" /><img src="images/1f471.png" class="emoji" alt="man" data-emoji-embed="smiling idiot" /><img src="images/2764.png" class="emoji" alt="heart" data-emoji-embed="heart" /></code>]' string.
 
 [source,javascript]
 ----
@@ -1261,42 +1261,42 @@ We could wrap those base-16 values in `'\u{codePoint}'` and voilá: you'd get th
 
 ++++
 <pre data-type="programlisting" data-code-language="javascript">'\u{1f40e}'
-// &lt;- '<img src="images/1f40e.png" alt="🐎" data-emoji-embed="🐎" />'
+// &lt;- '<img src="images/1f40e.png" alt="horse" data-emoji-embed="running horse" />'
 '\u{1f471}'
-// &lt;- '<img src="images/1f471.png" alt="👱" data-emoji-embed="👱" />'
+// &lt;- '<img src="images/1f471.png" alt="man" data-emoji-embed="smiling idiot" />'
 '\u{2764}'
-// &lt;- '<img src="images/2764.png" alt="❤️" data-emoji-embed="❤️" />'</pre>
+// &lt;- '<img src="images/2764.png" alt="heart" data-emoji-embed="heart" />'</pre>
 ++++
 
 ==== String.fromCodePoint
 
-This ((("StringcodePointAtx", startref="scpa7")))((("String.fromCodePoint")))((("Unicode", "StringcodePointAtx", startref="u7scpa")))((("Unicode", "String.fromCodePoint")))method takes in a number and returns a code point. Note how I can use the `0x` prefix with the terse base-16 code points we got from `String#codePointAt` moments ago.
+This ((("String#codePointAt", startref="scpa7")))((("String.fromCodePoint")))((("Unicode", "String#codePointAt", startref="u7scpa")))((("Unicode", "String.fromCodePoint")))method takes in a number and returns a code point. Note how I can use the `0x` prefix with the terse base-16 code points we got from `String#codePointAt` moments ago.
 
 ++++
 <pre data-type="programlisting" data-code-language="javascript">String.fromCodePoint(0x1f40e)
-// &lt;- '<img src="images/1f40e.png" alt="🐎" data-emoji-embed="🐎" />'
+// &lt;- '<img src="images/1f40e.png" alt="horse" data-emoji-embed="running horse" />'
 String.fromCodePoint(0x1f471)
-// &lt;- '<img src="images/1f471.png" alt="👱" data-emoji-embed="👱" />'
+// &lt;- '<img src="images/1f471.png" alt="man" data-emoji-embed="smiling idiot" />'
 String.fromCodePoint(0x2764)
-// &lt;- '<img src="images/2764.png" alt="❤️" data-emoji-embed="❤️" />'</pre>
+// &lt;- '<img src="images/2764.png" alt="heart" data-emoji-embed="heart" />'</pre>
 ++++
 
 You can just as well use plain base-10 literals and achieve the same results.
 
 ++++
 <pre data-type="programlisting" data-code-language="javascript">String.fromCodePoint(128014)
-// &lt;- '<img src="images/1f40e.png" alt="🐎" data-emoji-embed="🐎" />'
+// &lt;- '<img src="images/1f40e.png" alt="horse" data-emoji-embed="running horse" />'
 String.fromCodePoint(128113)
-// &lt;- '<img src="images/1f471.png" alt="👱" data-emoji-embed="👱" />'
+// &lt;- '<img src="images/1f471.png" alt="man" data-emoji-embed="smiling idiot" />'
 String.fromCodePoint(10084)
-// &lt;- '<img src="images/2764.png" alt="❤️" data-emoji-embed="❤️" />'</pre>
+// &lt;- '<img src="images/2764.png" alt="heart" data-emoji-embed="heart" />'</pre>
 ++++
 
 You can pass in as many code points as you'd like to `String.fromCodePoint`.
 
 ++++
 <pre data-type="programlisting" data-code-language="javascript">String.fromCodePoint(0x1f40e, 0x1f471, 0x2764)
-// &lt;- '<img src="images/1f40e.png" alt="ߐ🐎" data-emoji-embed="ߐ🐎" /><img src="images/1f471.png" alt="ߑ👱" data-emoji-embed="ߑ👱" /><img src="images/2764.png" alt="❤️" data-emoji-embed="❤️" />'</pre>
+// &lt;- '<img src="images/1f40e.png" alt="horse" data-emoji-embed="running horse" /><img src="images/1f471.png" alt="man" data-emoji-embed="smiling idiot" /><img src="images/2764.png" alt="heart" data-emoji-embed="heart" />'</pre>
 ++++
 
 As an exercise in futility, we could map a string to their numeric representation of code points, and back to the code points themselves.
@@ -1307,10 +1307,10 @@ As an exercise in futility, we could map a string to their numeric representatio
   .map(cp =&gt; cp.codePointAt(0))
   .map(cp =&gt; String.fromCodePoint(cp))
   .join('')
-// &lt;- '<img src="images/1f40e.png" alt="ߐ🐎" data-emoji-embed="ߐ🐎" /><img src="images/1f471.png" alt="ߑ👱" data-emoji-embed="ߑ👱" /><img src="images/2764.png" alt="❤️" data-emoji-embed="❤️" />'</pre>
+// &lt;- '<img src="images/1f40e.png" alt="horse" data-emoji-embed="running horse" /><img src="images/1f471.png" alt="man" data-emoji-embed="smiling idiot" /><img src="images/2764.png" alt="heart" data-emoji-embed="heart" />'</pre>
 ++++
 
-Reversing an string has potential to cause issues as well.
+Reversing a string has potential to cause issues as well.
 
 ==== Unicode-Aware String Reversal
 
@@ -1330,7 +1330,7 @@ The problem is that we're reversing individual code units, while we'd have to re
 ++++
 <pre data-type="programlisting" data-code-language="javascript">const text = '\ud83d\udc0e\ud83d\udc71\u2764'
 [...text].reverse().join('')
-// &lt;- '<img src="images/2764.png" alt="❤️" data-emoji-embed="❤️" /><img src="images/1f471.png" alt="ߑ👱" data-emoji-embed="ߑ👱" /><img src="images/1f40e.png" alt="ߐ🐎" data-emoji-embed="ߐ🐎" />'</pre>
+// &lt;- '<img src="images/2764.png" alt="heart" data-emoji-embed="heart" /><img src="images/1f471.png" alt="man" data-emoji-embed="smiling idiot" /><img src="images/1f40e.png" alt="horse" data-emoji-embed="running horse" />'</pre>
 ++++
 
 This way we avoid breaking up code points. Once again, keep in mind that this won't work for all grapheme clusters.
@@ -1345,7 +1345,7 @@ The last Unicode-related method we'll be addressing is `.normalize`.
 
 ==== String#normalize
 
-There are ((("Stringnormalizex")))((("Unicode", "Stringnormalizex")))different ways of representing strings that look identical to humans even though their code points differ. Consider the following example, where two seemingly identical strings aren't deemed equal by any JavaScript runtime.
+There are ((("String#normalize")))((("Unicode", "String#normalize")))different ways of representing strings that look identical to humans even though their code points differ. Consider the following example, where two seemingly identical strings aren't deemed equal by any JavaScript runtime.
 
 [source,javascript]
 ----
@@ -1401,7 +1401,7 @@ compare(normal, irregular)
 
 === Regular Expressions
 
-In ((("Unicode", startref="u7")))((("strings", "and Unicode", startref="s7au")))((("strings", "ES6 improvements", startref="s7esi")))((("regular expressions", id="rege7")))this section we'll take a look at regular expressions in and after ES6. There are a couple of regular expressions flags that were introduced in ES6: the `/y` or sticky flag, and the `/u` or Unicode flag. Then we'll discuss five proposals that are making their way through the ECMAScript specification development process at TC39.
+In ((("Unicode", startref="u7")))((("strings", "and Unicode", startref="s7au")))((("strings", "ES6 improvements", startref="s7esi")))((("regular expressions", id="rege7")))this section we'll take a look at regular expressions in and after ES6. There are a couple of regular expressions flags that were introduced in ES6: the `/y`, or sticky flag, and the `/u`, or Unicode flag. Then we'll discuss five proposals that are making their way through the ECMAScript specification development process at TC39.
 
 ==== Sticky Matching Flag /y
 
@@ -1466,14 +1466,14 @@ Using an escape sequence for an unreserved character such as `a` in a regular ex
 The following example attempts to embed the horse emoji in a regular expression by way of the `\u{1f40e}` notation that ES6 introduced for strings like `'\u{1f40e}'`, but the regular expression fails to match against the horse emoji. Without the `u` flag, the `\u{…}` pattern is interpreted as having an unnecessarily escaped `u` character followed by the rest of the sequence.
 
 ++++
-<pre data-type="programlisting" data-code-language="javascript">/\u{1f40e}/.test('<img src="images/1f40e.png" alt="ߐ🐎" data-emoji-embed="ߐ🐎" />') // &lt;- false
+<pre data-type="programlisting" data-code-language="javascript">/\u{1f40e}/.test('<img src="images/1f40e.png" alt="horse" data-emoji-embed="running horse" />') // &lt;- false
 /\u{1f40e}/.test('u{1f40e}') // &lt;- true</pre>
 ++++
 
 The `u` flag introduces support for Unicode code point escapes, like the `\u{1f40e}` horse emoji, within regular expressions.
 
 ++++
-<pre data-type="programlisting" data-code-language="javascript">/\u{1f40e}/u.test('<img src="images/1f40e.png" alt="ߐ🐎" data-emoji-embed="ߐ🐎" />')
+<pre data-type="programlisting" data-code-language="javascript">/\u{1f40e}/u.test('<img src="images/1f40e.png" alt="horse" data-emoji-embed="running horse" />')
 // &lt;- true</pre>
 ++++
 
@@ -1572,7 +1572,7 @@ hasSameUserAndPassword('root:pF6GGlyPhoy1!9i') // <- false
 
 The `\k<groupName>` reference can be used in tandem with numbered references, but the latter are better avoided when already using named references.
 
-Lastly, named groups can be referenced from the replacement passed to `String#replace`. In ((("Stringreplacex")))the next code snippet we use `String#replace` and named groups to change an American date string to use Hungarian formatting.
+Lastly, named groups can be referenced from the replacement passed to `String#replace`. In ((("String#replace")))the next code snippet we use `String#replace` and named groups to change an American date string to use Hungarian formatting.
 
 [source,javascript]
 ----
@@ -1638,21 +1638,20 @@ isNonGreekSymbol('π')
 
 When we need to match every Unicode decimal number symbol, and not just `[0-9]` like `\d` does, we could use `\p{Decimal_Number}` as shown next.
 
-[source,javascript]
-----
-function isDecimalNumber(input) {
+++++
+<pre data-type="programlisting" data-code-language="javascript">function isDecimalNumber(input) {
   const rdigits = /^\p{Decimal_Number}+$/u
   return rdigits.test(input)
 }
-isDecimalNumber('𝟏𝟐𝟑𝟜𝟝𝟞𝟩𝟪𝟫𝟬𝟭𝟮𝟯𝟺𝟻𝟼')
-// <- true
-----
+isDecimalNumber('<span class="unicode-nums s1"><img src="images/a123.png" /><img src="images/b456.png" /><img src="images/c789.png" /><img src="images/d0123.png" /><img src="images/e456.png" /></span>')
+// &lt;- true</pre>
+++++
 
 Check out this exhaustive ((("Unicode", "supported Unicode properties and values")))overview of https://mjavascript.com/out/unicode-property-list[supported Unicode properties and values].
 
 ==== Lookbehind Assertions
 
-JavaScript has had positive ((("lookahead assertions")))((("Lookbehind assertions", id="la7")))lookahead assertions for a long time. That feature allows us to match an expression but only if it's followed by another expression. These assertions are expressed as `(?=…)`. Regardless of whether a lookahead assertion matches, the results of that match are discarded and no characters of the input string are consumed.
+JavaScript has had positive ((("lookahead assertions")))((("lookbehind assertions", id="la7")))lookahead assertions for a long time. That feature allows us to match an expression but only if it's followed by another expression. These assertions are expressed as `(?=…)`. Regardless of whether a lookahead assertion matches, the results of that match are discarded and no characters of the input string are consumed.
 
 The following example uses a positive lookahead to test whether an input string has a sequence of letters followed by `.js`, in which case it returns the filename without the `.js` part.
 
@@ -1702,7 +1701,7 @@ getDollarAmount('$12.34') // <- '12.34'
 getDollarAmount('€12.34') // <- null
 ----
 
-On the other hand, a negative lookbehind could be used to match numbers that aren't preceded by a ((("Lookbehind assertions", startref="la7")))dollar sign.
+On the other hand, a negative lookbehind could be used to match numbers that aren't preceded by a ((("lookbehind assertions", startref="la7")))dollar sign.
 
 [source,javascript]
 ----
@@ -1720,7 +1719,7 @@ getNonDollarAmount('€12.34') // <- '12.34'
 
 ==== A New /s "dotAll" Flag
 
-When ((("dotAll proposal")))((("s flagx")))((("s flagx", primary-sortas="s flag")))using the `.` pattern, we typically expect to match every single character. In JavaScript, however, a `.` expression doesn't match astral characters (which can be fixed by adding the `u` flag) nor line terminators.
+When ((("dotAll proposal")))((("/s flag")))((("/s flag", primary-sortas="s flag")))using the `.` pattern, we typically expect to match every single character. In JavaScript, however, a `.` expression doesn't match astral characters (which can be fixed by adding the `u` flag) nor line terminators.
 
 [source,javascript]
 ----
@@ -1752,7 +1751,7 @@ rcharacter.test('\n') // <- true
 
 ==== String#matchAll
 
-Often, when we ((("StringmatchAll proposalx", id="smap7")))have a regular expression with a global or sticky flag, we want to iterate over the set of captured groups for each match. Currently, it can be a bit of a hassle to produce the list of matches: we need to collect the captured groups using `String#match` or `RegExp#exec` in a loop, until the regular expression doesn't match the input starting at the `lastIndex` position property. In the following piece of code, the `parseAttributes` generator function does just that for a given regular expression.
+Often, when we ((("String#matchAll proposal", id="smap7")))have a regular expression with a global or sticky flag, we want to iterate over the set of captured groups for each match. Currently, it can be a bit of a hassle to produce the list of matches: we need to collect the captured groups using `String#match` or `RegExp#exec` in a loop, until the regular expression doesn't match the input starting at the `lastIndex` position property. In the following piece of code, the `parseAttributes` generator function does just that for a given regular expression.
 
 [source,javascript]
 ----
@@ -1805,7 +1804,7 @@ console.log(...parseAttributes(html))
 
 A bigger source of confusion is that `rattributes` mutates its `lastIndex` property on each call to `RegExp#exec`, which is how it can track the position after the last match. When there are no matches left, `lastIndex` is reset back to `0`. A problem arises when we don't iterate over all possible matches for a piece of input in one go--which would reset `lastIndex` to ++0++—and then we use the regular expression on a second piece of input, obtaining unexpected results.
 
-While it looks like our `matchAll` implementation wouldn't fall victim of this given it loops over all matches, it's be possible to iterate over the generator by hand, meaning that we'd run into trouble if we reused the same regular expression, as shown in the next bit of code. Note how the second matcher should report `['type', 'text']` but instead starts at an index much further ahead than `0`, even misreporting the `'placeholder'` key as `'laceholder'`.
+While it looks like our `matchAll` implementation wouldn't fall victim of this given it loops over all matches, it'd be possible to iterate over the generator by hand, meaning that we'd run into trouble if we reused the same regular expression, as shown in the next bit of code. Note how the second matcher should report `['type', 'text']` but instead starts at an index much further ahead than `0`, even misreporting the `'placeholder'` key as `'laceholder'`.
 
 [source,javascript]
 ----
@@ -1859,7 +1858,7 @@ console.log(addressMatcher.next().value)
 // <- ['placeholder', 'Enter your business address']
 ----
 
-The `String#matchAll` proposalpass:[<span data-type="footnote" id="string-matchall">Check out the <a href="https://mjavascript.com/out/string-matchall"><code>String#matchAll</code> proposal document</a>.</span>] (in stage 1 at the time of this writing) introduces a new method for the string prototype that would behave in a similar fashion as our `matchAll` implementation, except the returned iterable is a sequence of `match` objects as opposed to just the `captures` in the preceding example. Note that the `String#matchAll` sequence contains entire `match` objects, and not just numbered captures. This means we could access named captures through `match.groups` for each `match` in the ((("StringmatchAll proposalx", startref="smap7")))((("regular expressions", startref="rege7")))((("matchAll", startref="ma7")))sequence.
+The `String#matchAll` proposalpass:[<span data-type="footnote" id="string-matchall">Check out the <a href="https://mjavascript.com/out/string-matchall"><code>String#matchAll</code> proposal document</a>.</span>] (in stage 1 at the time of this writing) introduces a new method for the string prototype that would behave in a similar fashion as our `matchAll` implementation, except the returned iterable is a sequence of `match` objects as opposed to just the `captures` in the preceding example. Note that the `String#matchAll` sequence contains entire `match` objects, and not just numbered captures. This means we could access named captures through `match.groups` for each `match` in the ((("String#matchAll proposal", startref="smap7")))((("regular expressions", startref="rege7")))((("matchAll", startref="ma7")))sequence.
 
 [source,javascript]
 ----
@@ -1894,7 +1893,7 @@ cast('a', 'b')
 // <- ['a', 'b']
 ----
 
-We've already explored more terse ways of doing this in <<es6-essentials>>, when we first learned about rest and spread. You could, for instance, use the spread operator. As you no doubt remember, the spread operator leverages the iterator protocol to produce a sequence of values in arbitrary objects. The downside is that the objects we want to cast with spread must adhere to the iterator protocol by having implemeted `Symbol.iterator`. Luckily for us, `arguments` does implement the iterator protocol in ES6.
+We've already explored more terse ways of doing this in <<es6-essentials>>, when we first learned about rest and spread. You could, for instance, use the spread operator. As you no doubt remember, the spread operator leverages the iterator protocol to produce a sequence of values in arbitrary objects. The downside is that the objects we want to cast with spread must adhere to the iterator protocol by having implemented `Symbol.iterator`. Luckily for us, `arguments` does implement the iterator protocol in ES6.
 
 [source,javascript]
 ----
@@ -1940,7 +1939,7 @@ Array.from($('div'))
 // <- [<div>, <div>, <div>, …]
 ----
 
-The one thing you cannot do with either `Array.from` nor the spread operator is to pick a start index. Suppose you wanted to pull every `<div>` after the first one. With `Array#slice`, you ((("Arrayslicex")))could do the following.
+The one thing you cannot do with either `Array.from` nor the spread operator is to pick a start index. Suppose you wanted to pull every `<div>` after the first one. With `Array#slice`, you ((("Array#slice")))could do the following.
 
 [source,javascript]
 ----
@@ -2018,7 +2017,7 @@ function arrayOf(...items) {
 }
 ----
 
-The `Array` constructor has two overloads: `...items`, where you provide the items for the new array; and `length`, where you provide its numeric length. You can think about `Array.of` as a flavor of `new Array` that doesn't support a `length` overload. In the following code snippet, you'll find some of the unexpected ways in ((("new Array")))which `new Array` behaves thanks to its single-argument `length` overloaded constructor. If you're confused about the `undefined x ${ count }` notation in the browser console, that's indicating there are array holes in those positions. This is also known as a sparse array.
+The `Array` constructor has two overloads: `...items`, where you provide the items for the new array; and `length`, where you provide its numeric length. You can think about `Array.of` as a flavor of `new Array` that doesn't support a `length` overload. In the following code snippet, you'll find some of the unexpected ways in ((("new Array")))which `new Array` behaves, thanks to its single-argument `length` overloaded constructor. If you're confused about the `undefined x ${ count }` notation in the browser console, that's indicating there are array holes in those positions. This is also known as a _sparse array_.
 
 [source,javascript]
 ----
@@ -2048,7 +2047,7 @@ console.log(Array.of(-1)) // <- [-1]
 
 ==== Array#copyWithin
 
-Let's start with the ((("ArraycopyWithinx", id="acw7")))signature of `Array#copyWithin`.
+Let's start with the ((("Array#copyWithin", id="acw7")))signature of `Array#copyWithin`.
 
 [source,javascript]
 ----
@@ -2076,7 +2075,7 @@ items.copyWithin(6, 1, 3)
 
 Reasoning about `Array#copyWithin` is hard. Let's break it down.
 
-If we consider that the items to be copied were taken from the `[start, end)` range, then we could express that ((("Arrayslicex")))using an `Array#slice` call. These are the items that were pasted at the `target` position. We can use `.slice` to grab the copy.
+If we consider that the items to be copied were taken from the `[start, end)` range, then we could express that ((("Array#slice")))using an `Array#slice` call. These are the items that were pasted at the `target` position. We can use `.slice` to grab the copy.
 
 [source,javascript]
 ----
@@ -2085,7 +2084,7 @@ const copy = items.slice(1, 3)
 // <- [2, 3]
 ----
 
-We could also consider the pasting part of the operation as an advanced usage of `Array#splice`. The ((("Arraysplicex")))next code snippet does just that, passing the paste position to splice, telling it to remove as many items as we want to copy, and inserting the pasted items. Note that we're using the spread operator so that elements are inserted individually, and not as an array, through `.splice`.
+We could also consider the pasting part of the operation as an advanced usage of `Array#splice`. The ((("Array#splice")))next code snippet does just that, passing the paste position to splice, telling it to remove as many items as we want to copy, and inserting the pasted items. Note that we're using the spread operator so that elements are inserted individually, and not as an array, through `.splice`.
 
 [source,javascript]
 ----
@@ -2101,7 +2100,12 @@ Now that we better understand the internals of `Array#copyWithin`, we can genera
 
 [source,javascript]
 ----
-function copyWithin(items, target, start = 0, end = items.length) {
+function copyWithin(
+  items,
+  target,
+  start = 0,
+  end = items.length
+) {
   const copy = items.slice(start, end)
   const removed = end - start
   items.splice(target, removed, ...copy)
@@ -2109,7 +2113,7 @@ function copyWithin(items, target, start = 0, end = items.length) {
 }
 ----
 
-The example we've been trying so far would work just as well with our custom `copyWithin` ((("ArraycopyWithinx", startref="acw7")))function.
+The example we've been trying so far would work just as well with our custom `copyWithin` ((("Array#copyWithin", startref="acw7")))function.
 
 [source,javascript]
 ----
@@ -2119,7 +2123,7 @@ copyWithin([1, 2, 3, , , , , , , , ], 6, 1, 3)
 
 ==== Array#fill
 
-A convenient ((("Arrayfillx")))utility method to replace all items in an array with the provided `value`. Note that sparse arrays will be filled in their entirety, while existing items will be replaced by the fill value.
+A convenient ((("Array#fill")))utility method to replace all items in an array with the provided `value`. Note that sparse arrays will be filled in their entirety, while existing items will be replaced by the fill value.
 
 [source,javascript]
 ----
@@ -2156,7 +2160,7 @@ new Array(3).fill(map)
 
 ==== Array#find and Array#findIndex
 
-The `Array#find` method ((("Arrayfindx")))((("ArrayfindIndexx")))runs a `callback` for each `item` in an array until the first one that returns `true`, and then returns that `item`. The method follows the signature of `(callback(item, i, array), context)` that's also present in `Array#map`, `Array#filter`, and others. You can think of `Array#find` as a version of `Array#some` that returns the matching element instead of just `true`.
+The `Array#find` method ((("Array#find")))((("Array#findIndex")))runs a `callback` for each `item` in an array until the first one that returns `true`, and then returns that `item`. The method follows the signature of `(callback(item, i, array), context)` that's also present in `Array#map`, `Array#filter`, and others. You can think of `Array#find` as a version of `Array#some` that returns the matching element instead of just `true`.
 
 [source,javascript]
 ----
@@ -2168,7 +2172,7 @@ The `Array#find` method ((("Arrayfindx")))((("ArrayfindIndexx")))runs a `callbac
 // <- undefined
 ----
 
-There's an `Array#findIndex` method as well, and it leverages the same signature. Instead of returning a boolean value, or the element itself, `Array.findIndex` returns the index of the matching element, or `-1` if no matches occur. Here are a few examples.
+There's an `Array#findIndex` method as well, and it leverages the same signature. Instead of returning a Boolean value, or the element itself, `Array.findIndex` returns the index of the matching element, or `-1` if no matches occur. Here are a few examples.
 
 [source,javascript]
 ----
@@ -2182,7 +2186,7 @@ There's an `Array#findIndex` method as well, and it leverages the same signature
 
 ==== Array#keys
 
-Returns an ((("Arraykeysx")))iterator that yields a sequence holding the keys for the array. The returned value is an iterator, meaning you can iterate over it with `for..of`, the spread operator, or by manually calling `.next()`.
+++Array#keys++ returns an ((("Array#keys")))iterator that yields a sequence holding the keys for the array. The returned value is an iterator, meaning you can iterate over it with `for..of`, the spread operator, or by manually calling `.next()`.
 
 [source,javascript]
 ----
@@ -2217,7 +2221,7 @@ Now onto values.
 
 ==== Array#values
 
-Same thing ((("Arrayvaluesx")))as `Array#keys()`, but the returned iterator is a sequence of values instead of keys. In practice, you'll want to iterate over the array itself most of the time, but getting an iterator can come in handy sometimes.
+`Array#values` is the same ((("Array#values")))as `Array#keys()`, but the returned iterator is a sequence of values instead of keys. In practice, you'll want to iterate over the array itself most of the time, but getting an iterator can come in handy sometimes.
 
 [source,javascript]
 ----
@@ -2237,7 +2241,7 @@ Note that omitting the `.values()` method call would still produce a copy of the
 
 ==== Array#entries
 
-Similar ((("Arrayentriesx")))to both preceding methods, except `Array#entries` returns an iterator with a sequence of key/value pairs.
+Similar ((("Array#entries")))to both preceding methods, except `Array#entries` returns an iterator with a sequence of key/value pairs.
 
 [source,javascript]
 ----
@@ -2257,7 +2261,7 @@ Great, one last method left!
 
 ==== Array.prototype[Symbol.iterator]
 
-This is ((("Array.prototypex")))exactly the same as the `Array#values` method.
+This is ((("Array.prototype[Symbol.iterator]")))exactly the same as the `Array#values` method.
 
 [source,javascript]
 ----

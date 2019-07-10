@@ -1,7 +1,7 @@
 [[classes-symbols-objects-and-decorators]]
 == Classes, Symbols, Objects, pass:[<span class="keep-together">and Decorators</span>]
 
-Now that we've covered the basic improvements to the syntax, we're in good shape to take aim at a few other additions to the language: classes and symbols. Classes provide syntax to represent prototypal inheritance under the traditional class-based programming paradigm. Symbols are a new primitive value type in JavaScript, like strings, booleans, and numbers. They can be used for defining protocols, and in this chapter we'll investigate what that means. When we're done with classes and symbols, we'll discuss a few new static methods added to the `Object` built-in in ES6.
+Now that we've covered the basic improvements to the syntax, we're in good shape to take aim at a few other additions to the language: classes and symbols. Classes provide syntax to represent prototypal inheritance under the traditional class-based programming paradigm. Symbols are a new primitive value type in JavaScript, like strings, Booleans, and numbers. They can be used for defining protocols, and in this chapter we'll investigate what that means. When we're done with classes and symbols, we'll discuss a few new static methods added to the `Object` built-in in ES6.
 
 === Classes
 
@@ -81,7 +81,7 @@ class Fruit {
 }
 ----
 
-A not-so-minor detail you might have missed is that there aren't any commas in ((("classes", "commas in class syntax")))between method declarations of the `Fruit` class. That's not a mistake our copious copy editors missed, but rather part of the `class` syntax. The distinction can help avoid mistakes where we treat plain objects and classes as interchangeable even though they're not, and at the same time it makes classes better suited for future improvements to the syntax such as public and private class fields.
+A not-so-minor detail you might have missed is that there aren't any commas in ((("classes", "commas in class syntax")))between method declarations of the `Fruit` class. That's not a mistake our copious copyeditors missed, but rather part of the `class` syntax. The distinction can help avoid mistakes where we treat plain objects and classes as interchangeable even though they're not, and at the same time it makes classes better suited for future improvements to the syntax such as public and private class fields.
 
 The class-based solution is equivalent to the prototype-based piece of code we wrote earlier. Consuming a fruit wouldn't change in the slightest; the API for `Fruit` remains unchanged. The previous piece of code where we instantiated an apple, chopped it into smaller pieces, and ate most of it would work well with our `class`-flavored `Fruit` as well.
 
@@ -122,7 +122,7 @@ We'll dig deeper into class inheritance later. Let's take a more nuanced look at
 
 ==== Properties and Methods in Classes
 
-It ((("classes", "properties and methods in", id="class3pami")))((("properties", "in classes", id="p3ic")))((("methods", "in classes", id="m3ic")))should be noted that the `constructor` ((("constructor()")))method declaration is an optional member of a `class` declaration. The following bit of code shows an entirely valid `class` declaration that's comparable to an empty constructor function by the same name.
+It ((("classes", "properties and methods in", id="class3pami")))((("properties", id="p3ic")))((("methods", id="m3ic")))should be noted that the `constructor` ((("constructor()")))method declaration is an optional member of a `class` declaration. The following bit of code shows an entirely valid `class` declaration that's comparable to an empty constructor function by the same name.
 
 [source,javascript]
 ----
@@ -172,7 +172,7 @@ console.log(counter.next)
 // <- 4
 ----
 
-When paired with ((("setters")))setters, though, accessors may provide an interesting bridge between an object and its underlying data store. Consider the following example where we define a class that can be used to store and retrieve JSON data from `localStorage` using the provided ((("accessors", startref="acc3")))storage `key`.
+When paired with ((("setters")))setters, though, accessors may provide an interesting bridge between an object and its underlying data store. Consider the following example where we define a class that can be used to store and retrieve JSON data from `localStorage` using the provided storage `key`.
 
 [source,javascript]
 ----
@@ -250,7 +250,7 @@ console.log(MathHelper.sum(1, 2, 3, 4, 5))
 // <- 15
 ----
 
-Finally, it's worth mentioning that you could also declare static property ((("accessors")))accessors, such as ((("getters")))((("setters")))getters or setters (`static get`, `static set`). These might come in handy when maintaining global configuration state for a class, or when a class is used under a singleton pattern. Of course, you're probably better off using plain old JavaScript objects at that point, rather than creating a class you never intend to instantiate or only intend to instantiate once. This is JavaScript, a highly dynamic language, ((("classes", "properties and methods in", startref="class3pami")))((("properties", "in classes", startref="p3ic")))((("methods", "in classes", startref="m3ic")))after all.
+Finally, it's worth mentioning that you could also declare static property ((("accessors", startref="acc3")))accessors, such as ((("getters")))((("setters")))getters or setters (`static get`, `static set`). These might come in handy when maintaining global configuration state for a class, or when a class is used under a singleton pattern. Of course, you're probably better off using plain old JavaScript objects at that point, rather than creating a class you never intend to instantiate or only intend to instantiate once. This is JavaScript, a highly dynamic language, ((("classes", "properties and methods in", startref="class3pami")))((("properties", "in classes", startref="p3ic")))((("methods", "in classes", startref="m3ic")))after all.
 
 ==== Extending JavaScript Classes
 
@@ -337,7 +337,7 @@ class Plum extends createJuicyFruit('plum', 30) {
 }
 ----
 
-Let's move ((("prototypal inheritance", startref="pi3)))onto `Symbol`. While not an iteration or flow control mechanism, learning about `Symbol` is crucial to shaping an understanding of iteration protocols, which are discussed at length later in ((("classes", startref="class3")))((("classes", "extending", startref="class3ext")))the chapter.
+Let's move ((("prototypal inheritance", startref="pi3)))onto `Symbol`. While not an iteration or flow control mechanism, learning about `Symbol` is crucial to shaping an understanding of iteration protocols, which are discussed at length in ((("classes", startref="class3")))((("classes", "extending", startref="class3ext")))the next chapter.
 
 === Symbols
 
@@ -428,7 +428,7 @@ console.log(JSON.stringify(character))
 // <- '{"name":"Penguin"}'
 ----
 
-That being said, symbols are by no means a safe mechanism to conceal properties. Even though you won't stumble upon symbol properties when using reflection or serialization methods, symbols are revealed by a dedicated method as shown in the next snippet of code. In other words, symbols are not nonenumerable, but hidden in plain sight. Using `Object.getOwnPropertySymbols` we can retrieve all symbols used as property keys on any given object.
+That being said, symbols are by no means a safe mechanism to conceal properties. Even though you won't stumble upon symbol properties when using pre-ES6 reflection, iteration or serialization methods, symbols are revealed by a dedicated method as shown in the next snippet of code. In other words, symbols are not nonenumerable, but hidden in plain sight. Using `Object.getOwnPropertySymbols` we can retrieve all symbols used as property keys on any given object.
 
 [source,javascript]
 ----
@@ -462,7 +462,7 @@ There is an ((("symbols", "for DOM element mapping", startref="sym3fdomem")))ES6
 
 ===== Defining protocols through symbols
 
-Earlier, ((("symbols", "defining protocols through", id="sym3dpt")))((("protocols", "defining through symbols", id="p3dts")))we posited that a use case for symbols is to define protocols. A protocol is a communication contract or convention that defines behavior. In less abstract terms, a library could use a symbol that could then be used by objects that adhere to a convention from the library.
+Earlier, ((("symbols", "defining protocols through", id="sym3dpt")))((("protocols", id="p3dts")))we posited that a use case for symbols is to define protocols. A protocol is a communication contract or convention that defines behavior. In less abstract terms, a library could use a symbol that could then be used by objects that adhere to a convention from the library.
 
 Consider the following bit of code, where we use the special `toJSON` method to determine the object serialized by `JSON.stringify`. As you can see, stringifying the `character` object produces a serialized version of the object returned by `toJSON`.
 
@@ -523,7 +523,7 @@ When it comes to the merits of using a symbol to describe behavior, as opposed t
 
 A benefit of defining behavior via symbols is that you could augment and customize the behavior of objects without changing anything other than the value assigned to a symbol property and perhaps the internal implementation of the piece of code that leverages that behavior. The benefit of using symbols over properties is that you're not subject to name clashes when new language features are introduced.
 
-Besides local symbols, there's also a global symbol registry, accessible from across code realms. Let's look into what ((("symbols", "use cases for", startref="sym3ucf")))((("symbols", "defining protocols through", startref="sym3dpt")))((("protocols", "defining through symbols", startref="p3dts")))that means.
+Besides local symbols, there's also a global symbol registry, accessible from across code realms. Let's look into what ((("symbols", "use cases for", startref="sym3ucf")))((("symbols", "defining protocols through", startref="sym3dpt")))((("protocols", startref="p3dts")))that means.
 
 ==== Global Symbol Registry
 
@@ -595,9 +595,9 @@ There are trade-offs in using widely available symbols. On the one hand, they ma
 
 There's one more kind of symbol: built-in well-known symbols.
 
-==== Well-known Symbols
+==== Well-Known Symbols
 
-So ((("symbols", "well-known", id="sym3wk")))far we've covered symbols you can create using the `Symbol` function and those you can create through `Symbol.for`. The third and last kind of symbols we're going to cover are the well-known symbols. These are built into the language instead of created by JavaScript developers, and they provide hooks into internal language behavior allowing you to extend or customize aspects of the language that weren't accessible prior to ES6.
+So ((("symbols", "well-known", id="sym3wk")))far we've covered symbols you can create using the `Symbol` function and those you can create through `Symbol.for`. The third and last kind of symbols we're going to cover are the well-known symbols. These are built into the language instead of created by JavaScript developers, and they provide hooks into internal language behavior, allowing you to extend or customize aspects of the language that weren't accessible prior to ES6.
 
 A great example of how symbols can add extensibility to the language without breaking existing code is the `Symbol.toPrimitive` ((("symbols", "  Symbol.toPrimitive")))well-known symbol. It can be assigned a function to determine how an object is cast into a primitive value. The function receives a `hint` parameter that can be `'string'`, `'number'`, or `'default'`, indicating what type of primitive value is expected.
 
@@ -622,7 +622,7 @@ console.log(morphling + ' is powerful')
 // <- '[object Morphling] is powerful'
 ----
 
-Another example of a well-known symbol is `Symbol.match`. A ((("symbols", "Symbol.match")))regular expression that sets `Symbol.match` to `false` will be treated as a string literal when passed to `.startsWith`, `.endsWith`, or `.includes`. These (((".startsWith()", primary-sortas="startsWith")))(((".endsWith()", primary-sortas="endsWith")))(((".includes()", primary-sortas="includes")))three functions are new string methods in ES6. First we have `.startsWith`, which can be used to determine if the string starts with another string. Then there's `.endsWith`, which finds out whether the string ends in another one. Lastly, the `.includes` method returns `true` if a string contains another one. The next snippet of code shows how `Symbol.match` can be used to compare a string with the string representation of a regular expression.
+Another example of a well-known symbol is `Symbol.match`. A ((("symbols", "Symbol.match")))regular expression that sets `Symbol.match` to `false` will be treated as a string literal when passed to `.startsWith`, `.endsWith`, or `.includes`. These (((".startsWith()", primary-sortas="startsWith")))(((".endsWith()", primary-sortas="endsWith")))(((".includes()", primary-sortas="includes")))(((".startsWith()")))(((".endsWith()")))(((".includes()")))three functions are new string methods in ES6. First we have `.startsWith`, which can be used to determine if the string starts with another string. Then there's `.endsWith`, which finds out whether the string ends in another one. Lastly, the `.includes` method returns `true` if a string contains another one. The next snippet of code shows how `Symbol.match` can be used to compare a string with the string representation of a regular expression.
 
 [source,javascript]
 ----
@@ -698,7 +698,7 @@ function md(input, options) {
 }
 ----
 
-.Understanding the target of Object.assign
+.Understanding the Target of Object.assign
 ****
 The `Object.assign` function mutates its first argument. Its signature is `(target, ...sources)`. Every source is applied onto the target object, source by source and property by property.
 
@@ -755,7 +755,7 @@ console.log(Object.assign({}, defaults, options))
 
 Note, however, that `Object.assign` doesn't cater to every need. While most user-land implementations have the ability to perform deep assignment, `Object.assign` doesn't offer a recursive treatment of objects. Object values are assigned as properties on `target` directly, instead of being recursively assigned key by key.
 
-In the following bit of code you might expect the `f` property to be added to `target.a` while keeping `b.c` and `b.d` intact, but the `b.c` and `b.d` properties are lost when using `Object.assign`.
+In the following bit of code you might expect the `f` property to be added to `target.a` while keeping `a.b` and `a.d` intact, but the `a.b` and `a.d` properties are lost when using `Object.assign`.
 
 [source,javascript]
 ----
@@ -771,7 +771,7 @@ Object.assign({}, { a: ['b', 'c', 'd'] }, { a: ['e', 'f'] })
 // <- { a: ['e', 'f'] }
 ----
 
-At the time of this writing, there's an ECMAScript stage 3 proposalpass:[<span data-type="footnote" id="object-spread">You can find the proposal draft at <a href="http://bit.ly/2r2ima9">GitHub</a>.</span>] to implement spread in objects, similar to how you can spread iterable objects onto an array in ES6. Spreading an ((("objects", "object spread")))object onto another is equivalent to using an `Object.assign` function call.
+At the time of this writing, there's an ECMAScript stage 3 proposalpass:[<span data-type="footnote" id="object-spread">You can find the proposal draft at <a href="https://mjavascript.com/out/object-spread">GitHub</a>.</span>] to implement spread in objects, similar to how you can spread iterable objects onto an array in ES6. Spreading an ((("objects", "object spread")))object onto another is equivalent to using an `Object.assign` function call.
 
 The following piece of code shows a few cases where we're spreading the properties of an object onto another one, and their `Object.assign` counterpart. As you can see, using object spread is more succinct and should be preferred where possible.
 
@@ -877,20 +877,20 @@ Using `Object.setPrototypeOf` to change the prototype of an object is an expensi
 
 [quote, Mozilla Developer Network]
 ____
-Changing the prototype of an object is, by the nature of how modern JavaScript engines optimize property accesses, a very slow operation, in every browser and JavaScript engine. The effects on performance of altering inheritance are subtle and far-flung, and are not limited to simply the time spent in a `obj.__proto__ = …` statement, but may extend to any code that has access to any object whose prototype has been altered. If you care about performance you should avoid setting the prototype of an object. Instead, create a new ((("objects", "built-in improvements", startref="ob3bii")))object with the desired ((("objects", "setting prototypes", startref="ob3sp")))((("Object.setPrototypeOf", startref="ospo3")))prototype using `Object.create()`.
+Changing the prototype of an object is, by the nature of how modern JavaScript engines optimize property accesses, a very slow operation, in every browser and JavaScript engine. The effects on performance of altering inheritance are subtle and far-flung, and are not limited to simply the time spent in a `Object.setPrototypeOf(…)` statement, but may extend to any code that has access to any object whose prototype has been altered. If you care about performance you should avoid setting the prototype of an object. Instead, create a new ((("objects", "built-in improvements", startref="ob3bii")))object with the desired ((("objects", "setting prototypes", startref="ob3sp")))((("Object.setPrototypeOf", startref="ospo3")))prototype using `Object.create()`.
 ____
 
 ****
 
 === Decorators
 
-Decorators are, ((("Decorators", id="dec3")))as most things programming, definitely not a new concept. They pattern is fairly commonplace in modern programming languages: you have attributes in C#, they're called annotations in Java, there are decorators in Python, and the list goes on. There's a JavaScript decorators proposalpass:[<span data-type="footnote" id="decorators">You can find the proposal draft online at <a href="https://mjavascript.com/out/decorators">GitHub</a>.</span>] in the works. It is currently sitting at stage 2 of the TC39 process.
+Decorators are, ((("Decorators", id="dec3")))as most things programming, definitely not a new concept. The pattern is fairly commonplace in modern programming languages: you have _attributes_ in C#, they're called _annotations_ in Java, there are _decorators_ in Python, and the list goes on. There's a JavaScript decorators proposalpass:[<span data-type="footnote" id="decorators"> in the works and you can find the draft online at <a href="https://mjavascript.com/out/decorators">GitHub</a>.</span>] It is currently sitting at stage 2 of the TC39 process.
 
 ==== A Primer on JavaScript Decorators
 
 The syntax for JavaScript decorators is fairly similar to that of Python decorators. JavaScript decorators may be applied to classes and any statically defined properties, such as those found on an object literal declaration or in a `class` declaration--even if they are `get` accessors, `set` accessors, or `static` properties.
 
-The proposal defines a decorator as an `@` followed by a sequence of dotted identifiersfootnoteref:[no-dynamic-access, Accessing properties via `[]` notation is disallowed due to the difficulty it would present when disambiguating grammar at the compiler level.] and an optional argument list. Here are a few examples:
+The proposal defines a _decorator_ as an `@` followed by a sequence of dotted identifiersfootnoteref:[no-dynamic-access, Accessing properties via `[]` notation is disallowed due to the difficulty it would present when disambiguating grammar at the compiler level.] and an optional argument list. Here are a few examples:
 
 - `@decorators.frozen` is a valid decorator
 - `@decorators.frozen(true)` is a valid decorator
@@ -916,7 +916,6 @@ class View {
 
 Decorators are implemented by way of functions. Member decorator functions take a member ((("Decorators", "descriptors in", id="dec3d")))((("descriptors", id="d3")))descriptor and return a member descriptor. Member descriptors are similar to property descriptors, but with a different shape. The following bit of code has the member descriptor interface, as defined by the decorators proposal. An optional `finisher` function receives the class constructor, allowing us to perform operations related to the class whose property is being decorated.
 
-[source]
 ----
 interface MemberDescriptor {
   kind: "Property"
@@ -954,31 +953,31 @@ function readonlyMembers(ctor, heritage, members) {
 }
 ----
 
-==== Stacking Decorators and a Warning about Immutability
+==== Stacking Decorators and a Warning About Immutability
 
 With all ((("Decorators", "stacking")))the fluff around immutability you may be tempted to return a new property descriptor from your decorators, without modifying the original descriptor. While well-intentioned, this may have an undesired effect, as it is possible to decorate the same `class` or class member several times.
 
 If any decorators in a piece of code returned an entirely new `descriptor` without taking into consideration the `descriptor` parameter they receive, they'd effectively lose all the decoration that took place before the different descriptor was returned.
 
-We should be careful to write decorators that take into account the supplied `descriptor`. ALways create one that's based on the original `descriptor` that's provided as a ((("Decorators", "descriptors in", startref="dec3d")))((("descriptors", startref="d3")))parameter.
+We should be careful to write decorators that take into account the supplied `descriptor`. Always create one that's based on the original `descriptor` that's provided as a ((("Decorators", "descriptors in", startref="dec3d")))((("descriptors", startref="d3")))parameter.
 
 ==== Use Case By Example: Attributes in C#
 
-A long time ago, ((("Decorators", "versus C# attributes", secondary-sortas="c", id="dec3vca")))I was first getting acquainted with C# by way of an Ultima Onlinefootnoteref:[uo,Ultima Online is a decades-old fantasy role playing game based on the Ultima universe.] server emulator written in open-source C# code--RunUO. ((("RunUO", id="ruo3")))RunUO was one of the most beautiful codebases I've ever worked with, and it was written in C# to boot.
+A long time ago, ((("Decorators", "versus C# attributes", secondary-sortas="c", id="dec3vca")))I was first getting acquainted with C# by way of an Ultima Onlinefootnoteref:[uo,Ultima Online is a decades-old fantasy role playing game based on the Ultima universe.] server emulator written in open source C# code--RunUO. ((("RunUO", id="ruo3")))RunUO was one of the most beautiful codebases I've ever worked with, and it was written in C# to boot.
 
-They distributed the server software as an executable and a series of `.cs` files. The `runuo` executable would compile those `.cs` scripts at runtime and dynamically mix them into the application. The result was that you didn't need the Visual Studio IDE (nor `msbuild`), or anything other than just enough programming knowledge to edit one of the "scripts" in those `.cs` files. All of the above made RunUO the perfect learning environment for the newcomer developer.
+They distributed the server software as an executable and a series of `.cs` files. The `runuo` executable would compile those `.cs` scripts at runtime and dynamically mix them into the application. The result was that you didn't need the Visual Studio IDE (nor `msbuild`), or anything other than just enough programming knowledge to edit one of the "scripts" in those `.cs` files. All of the above made RunUO the perfect learning environment for the new developer.
 
-RunUO relied heavily in reflection. They made significant efforts to be customizable by players who were not necessarily invested in programming but were nevertheless interested in changing a few details of the game, such as how much damage a Dragon's fire breath inflicts or how often they shot fireballs. Great developer experience was a big part of their philosophy, and you could create a new kind of `Dragon` just by copying one of the monster files, changing it to inherit from the `Dragon` class, and overriding a few properties to change its color hue, its damage output, and so on.
+RunUO relied heavily on reflection. RunUO's developers made significant efforts to make it customizable by players who were not necessarily invested in programming, but were nevertheless interested in changing a few details of the game, such as how much damage a dragon's fire breath inflicts or how often it shot fireballs. Great developer experience was a big part of their philosophy, and you could create a new kind of `Dragon` just by copying one of the monster files, changing it to inherit from the `Dragon` class, and overriding a few properties to change its color hue, its damage output, and so on.
 
-Just as they made it easy to create new monsters--or "non-player characters" (NPC) in gaming slang--they also relied in reflection to provide functionality to in-game administrators. Administrators could run an in-game command and click on an item or a monster to visualize or change properties without ever leaving the game.
+Just as they made it easy to create new monsters--or "non-player characters" (_NPC_ in gaming slang)--they also relied on reflection to provide functionality to in-game administrators. Administrators could run an in-game command and click on an item or a monster to visualize or change properties without ever leaving the game.
 
 [[fig0301]]
 .Modifying properties for a RunUO item in-game from the Ultima Online client
 image::images/pmjs_0301.png["Modifying properties for a RunUO item in-game from the Ultima Online client."]
 
-Not every property in a class is meant to be accessible in-game, though. Some properties are only meant for internal use, or not meant to be modified at runtime. RunUO had a `CommandPropertyAttribute` decoratorpass:[<span data-type="footnote" id="runuo-attributes">GitHub has the definition of <a href="http://bit.ly/2r1Xlfs"><code>CommandPropertyAttribute</code> for RunUO</a>.</span>] which definied that the property could be modified in-game and where you could also specify the access level required to read and write that property. This decorator was used extensively throughout the RunUO codebase.pass:[<span data-type="footnote" id="runuo-commandprops">Their use is widespread throughout the codebase, marking over 200 properties in the <a href="https://mjavascript.com/out/runuo-commandprops">RunUO core alone</a>.</span>]
+Not every property in a class is meant to be accessible in-game, though. Some properties are only meant for internal use, or not meant to be modified at runtime. RunUO had a `CommandPropertyAttribute` decorator,pass:[<span data-type="footnote" id="runuo-attributes">The RunUO Git repository has the definition of <a href="https://mjavascript.com/out/runuo-attributes"><code>CommandPropertyAttribute</code> for RunUO</a>.</span>] which defined that the property could be modified in-game and let you also specify the access level required to read and write that property. This decorator was used extensively throughout the RunUO codebase.pass:[<span data-type="footnote" id="runuo-commandprops">Its use is widespread throughout the codebase, marking over 200 properties in the <a href="https://mjavascript.com/out/runuo-commandprops">RunUO core alone</a>.</span>]
 
-The `PlayerMobile` class, which governed how a player's character works, is a great place to look at these attributes. `PlayerMobile` have several properties that are accessible in-gamepass:[<span data-type="footnote" id="runuo-playermobile">You can find quite a few usage examples of <code>CommandProperty</code> attribute in the <a href="https://mjavascript.com/out/runuo-playermobile"><code>PlayerMobile.cs</code> class</a>.</span>] to administrators and moderators. Here are a couple of getters and setters, but only the first one has the `CommandProperty` attribute--making that property accessible to Game Masters in-game.
+The `PlayerMobile` class, which governed how a player's character works, is a great place to look at these attributes. `PlayerMobile` has several properties that are accessible in-gamepass:[<span data-type="footnote" id="runuo-playermobile">You can find quite a few usage examples of the <code>CommandProperty</code> attribute in the <a href="https://mjavascript.com/out/runuo-playermobile"><code>PlayerMobile.cs</code> class</a>.</span>] to administrators and moderators. Here are a couple of getters and setters, but only the first one has the `CommandProperty` attribute--making that property accessible to Game Masters in-game.
 
 [source,csharp]
 ----
@@ -1044,7 +1043,7 @@ function getCommandProperties(ctor) {
   return [...properties]
 }
 getCommandProperties(Dog)
-// <- [{ key: 'name', readLevel: 'game-master', 
+// <- [{ key: 'name', readLevel: 'game-master',
 // writeLevel: 'game-master' }]
 ----
 

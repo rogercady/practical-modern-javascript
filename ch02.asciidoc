@@ -7,7 +7,7 @@ Object literals get a few syntax changes in ES6, and they're a good place to sta
 
 === Object Literals
 
-An ((("object literals", id="ol2")))object literal is any object declaration using the `{}` shorthand syntax, such as the following example:
+An ((("object literals", id="ol2")))_object literal_ is any object declaration using the `{}` shorthand syntax, such as the following example:
 
 [source,javascript]
 ----
@@ -43,7 +43,7 @@ function listen() {}
 var events = { listeners, listen }
 ----
 
-As we'll further explore in the second part of the book, property value shorthands help de-duplicate the code we write without dilluting its meaning. In the following snippet, I reimplemented part of `localStorage`, a browser API for persistent storage, as an in-memory ponyfill. If it weren't for the shorthand syntax, the `storage` object would be more verbose to type out:
+As we'll further explore in the second part of the book, property value shorthands help de-duplicate the code we write without diluting its meaning. In the following snippet, I reimplemented part of `localStorage`, a browser API for persistent storage, as an in-memory ponyfill.pass:[<span data-type="footnote" id="ponyfills">Like polyfills, <a href="https://mjavascript.com/out/ponyfills">ponyfills</a> are user-land implementations of features that aren't available in every JavaScript runtime. While polyfills try to patch the runtime environment so that it behaves as if the feature was indeed available on the runtime, ponyfills implement the missing functionality as standalone modules that don't pollute the runtime environment. This has the benefit of not breaking expectations third-party libraries (that don't know about your polyfill) may have about the environment.</span>] If it weren't for the shorthand syntax, the `storage` object would be more verbose to type out:
 
 [source,javascript]
 ----
@@ -126,7 +126,7 @@ var groceries = {
 }
 ----
 
-Another case may be whenever a function receives a parameter that it should then use to build out an object. In ES5 code, you'd need to allocate a variable declaring an object literal, then add the dynamic property, and then return the object. The following example shows exactly that, when creating an envelope that could later be used for AJAX messages that follow a convention: they have an `error` property with a description when something goes wrong, and a `success` property ((("error property")))((("success property")))when things turn out okay:
+Another case may be whenever a function receives a parameter that it should then use to build out an object. In ES5 code, you'd need to allocate a variable declaring an object literal, then add the dynamic property, and then return the object. The following example shows exactly that, when creating an envelope that could later be used for Ajax messages that follow a convention: they have an `error` property with a description when something goes wrong, and a `success` property ((("error property")))((("success property")))when things turn out okay:
 
 [source,javascript]
 ----
@@ -155,7 +155,7 @@ The last enhancement coming to object literals is ((("object literals", "compute
 
 ==== Method Definitions
 
-Typically, ((("object literals", "method definitions", id="ol2md")))((("method definitions", id="mdef2")))you can declare methods on an object by adding properties to it. In the next snippet, we're creating an small event emitter that supports multiple kinds of events. It comes with an `emitter#on` method ((("emitter object", id="eo2")))that can be used to register event listeners, and an `emitter#emit` method that can be used to raise events:
+Typically, ((("object literals", "method definitions", id="ol2md")))((("method definitions", id="mdef2")))you can declare methods on an object by adding properties to it. In the next snippet, we're creating a small event emitter that supports multiple kinds of events. It comes with an `emitter#on` method ((("emitter object", id="eo2")))that can be used to register event listeners, and an `emitter#emit` method that can be used to raise events:
 
 [source,javascript]
 ----
@@ -178,7 +178,7 @@ var emitter = {
 }
 ----
 
-Starting in ES6, you can declare methods on an object literal using the new method definition syntax. In this case, we can omit the colon and the `function` keyword. This is meant as a terse alternative to traditional method declarations where you need to use the `function` ((("function keyword")))keyword. The following example shows how our `emitter` object looks like when using method definitions.
+Starting in ES6, you can declare methods on an object literal using the new method definition syntax. In this case, we can omit the colon and the `function` keyword. This is meant as a terse alternative to traditional method declarations where you need to use the pass:[<span class="keep-together"><code>function</code></span>] ((("function keyword")))keyword. The following example shows how our `emitter` object looks when using method definitions.
 
 [source,javascript]
 ----
@@ -215,7 +215,7 @@ function name(parameters) {
 }
 ----
 
-You could also create ((("arrow functions", "anonymous")))((("anonymous functions")))anonymous functions, by omitting the name, when assigning the function to a variable, a property, or a function call.
+You could also create ((("arrow functions", "anonymous", id="af2a")))((("anonymous functions", id="anonf2")))anonymous functions, by omitting the name when assigning the function to a variable, a property, or a function call.
 
 [source,javascript]
 ----
@@ -224,7 +224,7 @@ var example = function (parameters) {
 }
 ----
 
-Starting with ES6, you can use arrow functions as another way of writing anonymous functions. Keep in mind, there's several slightly different ways of writing them. The following piece of code shows an arrow function that's very similar to the anonymous function we just saw. The only difference seems to be the missing `function` keyword and the `=>` arrow to the right of the parameter list.
+Starting with ES6, you can use arrow functions as another way of writing anonymous functions. Keep in mind, there are several slightly different ways of writing them. The following piece of code shows an arrow function that's very similar to the anonymous function we just saw. The only difference seems to be the missing `function` keyword and the `=>` arrow to the right of the parameter list.
 
 [source,javascript]
 ----
@@ -258,7 +258,7 @@ setTimeout(function () {
 // <- 3
 ----
 
-If we had defined the function passed to `setInterval` as a regular anonymous function instead of using an arrow function, `this` would've been bound to the context of the ((("arrow functions", "anonymous")))((("anonymous functions")))anonymous function, instead of the context of the `start` method. We could have implemented `timer` with a declaration like `var self = this` at the beginning of the `start` method, and then referencing `self` instead of `this`. With arrow functions, the added complexity of keeping context references around fades away and we can focus on the functionality of our code.
+If we had defined the function passed to `setInterval` as a regular anonymous function instead of using an arrow function, `this` would've been bound to the context of the ((("arrow functions", "anonymous", startref="af2a")))((("anonymous functions", startref="anonf2")))anonymous function, instead of the context of the `start` method. We could have implemented `timer` with a declaration like `var self = this` at the beginning of the `start` method, and then referencing `self` instead of `this`. With arrow functions, the added complexity of keeping context references around fades away and we can focus on the functionality of our code.
 
 In a similar fashion, lexical binding in ES6 arrow functions also means that function calls won't be able to change the `this` context when using `.call`, `.apply`, `.bind`, etc. That limitation is usually more useful than not, as it ensures that the context will always be preserved and constant.
 
@@ -286,7 +286,7 @@ function puzzle() {
 puzzle('a', 'b', 'c')(1, 2, 3)
 ----
 
-In this case, the `arguments` object refers to the context of the `puzzle` function, because arrow functions don't create a closure. For this reason, the printed arguments will be `'a', 'b', 'c'`.
+Because arrow functions don't have their own `arguments` keyword (or `this` or `super`), the lookup bubbles up to the outer scope of the `puzzle` function. That means the printed arguments will be `'a', 'b', 'c'`.
 
 I've mentioned there are several flavors of arrow functions, but so far we've only looked at their fully fleshed version. What are the other ways to represent an ((("arrow functions", "lexical scoping", startref="af2ls")))((("lexical scoping", startref="ls2")))arrow function?
 
@@ -382,7 +382,7 @@ throwError('this is a warning')
   at throwError
 ----
 
-Arrow functions are neat when it comes to defining anonymous functions that should probably be lexically bound anyway, and they can definitely make your code more terse in some situations. They are particularly useful in most functional programming situations such as when using `.map`, `.filter`, or `.reduce` on collections, as shown in the following example:
+Arrow functions are neat when it comes to defining anonymous functions that should probably be lexically bound anyway, and they can definitely make your code more terse in some situations. They are particularly useful in most functional programming situations, such as when using `.map`, `.filter`, or `.reduce` on collections, as shown in the following example:
 
 [source,javascript]
 ----
@@ -401,81 +401,80 @@ This ((("arrow functions", startref="af2")))((("arrow functions", "merits and us
 
 ==== Destructuring Objects
 
-Imagine ((("assignment destructuring", "objects", id="ad2o")))((("destructuring", "objects", id="d2o")))((("objects", "destructuring", id="o2d")))you had a program with some comic book characters, Bruce Wayne being one of them, and you want to refer to properties in the object that describes him. Here's the example object we'll be using for Batman:
+Imagine ((("assignment destructuring", "objects", id="ad2o")))((("destructuring", "objects", id="d2o")))((("objects", "destructuring", id="o2d")))you had a program describing a color palette and you want to refer to properties in the object that describes it. Here's an example object we'll be using for our palette:
 
 [source,javascript]
 ----
-var character = {
-  name: 'Bruce',
-  pseudonym: 'Batman',
-  metadata: {
-    age: 34,
-    gender: 'male'
+var palette = {
+  profile: 'intense-red',
+  name: 'Red',
+  color: {
+    code: `#f00`
   },
-  batarang: ['gas pellet', 'bat-mobile control', 'bat-cuffs']
+  luminosity: 0.8
 }
 ----
 
-If you wanted a `pseudonym` variable referencing `character.pseudonym`, you could write the following bit of ES5 code. This is commonplace when, for instance, you'll be referencing `pseudonym` in several places in your codebase and you'd prefer to avoid typing out `character.pseudonym` each time:
+If you wanted a `profile` variable referencing `palette.profile`, you could write the following bit of ES5 code. This is commonplace when, for instance, you'll be referencing `profile` in several places in your codebase and you'd prefer to avoid typing out `palette.profile` each time:
 
 [source,javascript]
 ----
-var pseudonym = character.pseudonym
+var profile = palette.profile
 ----
 
-With destructuring in assignment, the syntax becomes a bit more clear. As you can see in the next example, you don't have to write `pseudonym` twice, while still clearly conveying intent. The following statement is equivalent to the previous one written in ES5 code:
+With destructuring in assignment, the syntax becomes a bit more clear. As you can see in the next example, you don't have to write `profile` twice, while still clearly conveying intent. The following statement is equivalent to the previous one written in ES5 code:
 
 [source,javascript]
 ----
-var { pseudonym } = character
+var { profile } = palette
 ----
 
 Just like you could declare multiple comma-separated variables with a single `var` statement, you can also declare multiple variables within the curly braces of a destructuring expression:
 
 [source,javascript]
 ----
-var { pseudonym, name } = character
+var { profile, name } = palette
 ----
 
 In a similar fashion, you could mix and match destructuring with regular variable declarations in the same `var` statement. While this might look a bit confusing at first, it'll be up to any JavaScript coding style guides you follow to determine whether it's appropriate to declare several variables in a single statement. In any case, it goes to show the flexibility offered by destructuring syntax:
 
 [source,javascript]
 ----
-var { pseudonym } = character, two = 2
+var { profile } = palette, two = 2
 ----
 
-If you want to extract a property named `pseudonym` but would like to declare it as a variable named `alias`, you can use the following destructuring syntax known as aliasing. Note that you can use `alias` or any other valid variable name:
-
-[source,javascript]
-----
-var { pseudonym: alias } = character
-console.log(alias)
-// <- 'Batman'
-----
-
-While aliases don't look any simpler than the ES5 flavor, `alias = character.pseudonym`, ((("aliases", id="al2")))they start making sense when you consider the fact that destructuring supports deep structures as in the following example:
+If you want to extract a property named `profile` but would like to declare it as a variable named `id`, you can use the following destructuring syntax, known as _aliasing_. Note that you can use `id` or any other valid variable name:
 
 [source,javascript]
 ----
-var { metadata: { gender } } = character
+var { profile: id } = palette
+console.log(id)
+// <- 'intense-red'
+----
+
+While aliases don't look any simpler than the ES5 flavor, `id = palette.profile`, ((("aliases", id="al2")))they start making sense when you consider the fact that destructuring supports deep structures, as in the following example:
+
+[source,javascript]
+----
+var { color: { code } } = palette
 ----
 
 In cases like the previous one, where you have deeply nested properties being destructured, you might be able to convey a property name more clearly if you choose an alias. Consider the next snippet, where a property named `code` wouldn't have been as indicative of its contents as `colorCode` could be:
 
 [source,javascript]
 ----
-var { metadata: { gender: characterGender } } = character
+var { color: { code: colorCode } } = palette
 ----
 
 The scenario we just saw repeats itself frequently, because properties are often named in the context of their host object. While `palette.color.code` is perfectly descriptive, `code` on its own could mean a wide variety of things, and aliases such as `colorCode` can help you bring context back into the variable name while still using destructuring.
 
-Whenever you access an nonexistent property in ES5 notation, you get a value of `undefined`:
+Whenever you access a nonexistent property in ES5 notation, you get a value of `undefined`:
 
 [source,javascript]
 ----
-console.log(character.boots)
+console.log(palette.luminosity)
 // <- undefined
-console.log(character['boots'])
+console.log(palette['luminosity'])
 // <- undefined
 ----
 
@@ -483,8 +482,8 @@ With destructuring, the same behavior prevails. When declaring a destructured va
 
 [source,javascript]
 ----
-var { boots } = character
-console.log(boots)
+var { luminosity } = palette
+console.log(luminosity)
 // <- undefined
 ----
 
@@ -492,7 +491,7 @@ A destructured declaration accessing a nested property of a parent object that's
 
 [source,javascript]
 ----
-var { boots: { size } } = character
+var { stroke: { width } } = palette
 // <- Exception
 var { missing } = null
 // <- Exception
@@ -511,43 +510,43 @@ As part of destructuring, you can provide default values for those cases where t
 
 [source,javascript]
 ----
-var { boots = { size: 10 } } = character
-console.log(boots)
-// <- { size: 10 }
+var { description = 'This is a color palette' } = palette
+console.log(description)
+// <- 'This is a color palette'
 ----
 
 Default values can also be provided in nested property destructuring.
 
 [source,javascript]
 ----
-var { metadata: { enemy = 'Satan' } } = character
-console.log(enemy)
-// <- 'Satan'
+var { color: { density = 320 } } = palette
+console.log(density)
+// <- 320
 ----
 
 For use in combination with aliases, you should place the alias first, and then the default value, as shown next.
 
 [source,javascript]
 ----
-var { boots: footwear = { size: 10 } } = character
+var { color: paletteColor = { density: 320 } } = palette
 ----
 
-It's possible to use the ((("computed property names")))computed property names syntax in destructuring patterns. In this case, however, you're required to provide an alias to be used as the variable name. That's because computed property names allow arbitrary expressions and thus the compiler wouldn't be able to infer a variable name. In the following example we use the `value` alias, and a computed property name to extract the `boots` property from the `character` object.
+It's possible to use the ((("computed property names")))computed property names syntax in destructuring patterns. In this case, however, you're required to provide an alias to be used as the variable name. That's because computed property names allow arbitrary expressions and thus the compiler wouldn't be able to infer a variable name. In the following example we use the `paletteProfile` alias, and a computed property name to extract the `profile` property from the `palette` object.
 
 [source,javascript]
 ----
-var { ['boo' + 'ts']: characterBoots } = character
-console.log(characterBoots)
+var { ['pro' + 'file']: paletteProfile } = palette
+console.log(paletteProfile)
 // <- true
 ----
 
-This flavor of destructuring is probably the least useful, as `characterBoots = character[type]` is usually simpler than `{ [type]: characterBoots } = character`, as it's a more sequential statement. That being said, the feature is useful when you have properties you want to declare in the object literal, as opposed to using subsequent assignment statements.
+This flavor of destructuring is probably the least useful, as `sourceProperty = source[property]` is usually simpler than `{ [property]: sourceProperty } = source`, as it's a more sequential statement. That being said, the feature is useful when you have properties you want to declare in the object literal, as opposed to using subsequent assignment statements.
 
 That's it, as far as objects go, in terms of destructuring. ((("assignment destructuring", "objects", startref="ad2o")))((("destructuring", "objects", startref="d2o")))((("objects", "destructuring", startref="o2d")))((("aliases", startref="al2")))What about arrays?
 
 ==== Destructuring Arrays
 
-The ((("assignment destructuring", "arrays", id="ad2a")))((("destructuring", "arrays", id="d2a")))((("arrays", "destructuring", id="a2d")))syntax for destructuring arrays is similar to that of objects. The ((("coordinates   object")))following example shows a `coordinates` object that's destructured into two variables: `x` and `y`. Note how the notation uses square brackets instead of curly braces; this denotes we're using array destructuring instead of object destructuring. Instead of having to sprinkle your code with implementation details like `x = coordinates[0]`, with destructuring you can convey your meaning clearly and without explicitly referencing the indices, naming the values instead.
+The ((("assignment destructuring", "arrays", id="ad2a")))((("destructuring", "arrays", id="d2a")))((("arrays", id="a2d")))syntax for destructuring arrays is similar to that of objects. The ((("coordinates   object")))following example shows a `coordinates` object that's destructured into two variables: `x` and `y`. Note how the notation uses square brackets instead of curly braces; this denotes we're using array destructuring instead of object destructuring. Instead of having to sprinkle your code with implementation details like `x = coordinates[0]`, with destructuring you can convey your meaning clearly and without explicitly referencing the indices, naming the values instead.
 
 [source,javascript]
 ----
@@ -597,7 +596,7 @@ var right = 7
 [left, right] = [right, left]
 ----
 
-The last area of destructuring we'll be covering is ((("assignment destructuring", "arrays", startref="ad2a")))((("destructuring", "arrays", startref="d2a")))((("arrays", "destructuring", startref="a2d")))function parameters.
+The last area of destructuring we'll be covering is ((("assignment destructuring", "arrays", startref="ad2a")))((("destructuring", "arrays", startref="d2a")))((("arrays", startref="a2d")))function parameters.
 
 ==== Function Parameter Defaults
 
@@ -694,7 +693,7 @@ var car = {
     name: 'Donald Draper'
   },
   brand: 'Peugeot',
-  make: 2015,
+  make: 2017,
   model: '208',
   preferences: {
     airbags: true,
@@ -746,7 +745,7 @@ console.log(random({ max: 24 }))
 // <- 18
 ----
 
-Regular ((("assignment destructuring", "function parameters", startref="ad2fpd")))((("destructuring", "function parameters", startref="d2fpd")))((("function parameters", startref="fpd2")))expressions are another great fit for destructuring. Destructuring empowers you to name groups from a match without having to resort to index numbers. Here's an example `RegExp` that could be used for parsing simple dates, and an example of destructuring those dates into each of its components. The first entry in the resulting array is reserved for the raw input string, and we can discard it.
+Regular ((("assignment destructuring", "function parameters", startref="ad2fpd")))((("destructuring", "function parameters", startref="d2fpd")))((("function parameters", startref="fpd2")))expressions are another great fit for destructuring. Destructuring empowers you to name groups from a match without having to resort to index numbers. Here's an example `RegExp` that could be used for parsing simple dates, and an example of destructuring those dates into each of their components. The first entry in the resulting array is reserved for the full matched text, and we can discard it.
 
 [source,javascript]
 ----
@@ -754,14 +753,14 @@ function splitDate(date) {
   var rdate = /(\d+).(\d+).(\d+)/
   return rdate.exec(date)
 }
-var [ , year, month, day] = splitDate('2015-11-06')
+var [ , year, month, day] = splitDate('2017-11-06')
 ----
 
 You'll want to be careful when the regular expression doesn't match, as that returns `null`. Perhaps a better approach would be to test for the failure case before destructuring, as shown in the following bit of code.
 
 [source,javascript]
 ----
-var matches = splitDate('2015-11-06')
+var matches = splitDate('2017-11-06')
 if (matches === null) {
   return
 }
@@ -788,7 +787,7 @@ ES6 has a better solution to the problem, and that's rest parameters.
 
 ==== Rest Parameters
 
-You ((("rest parameters", id="rp2")))can now precede the last parameter in any JavaScript function with three dots, converting it into an special "rest parameter." When the rest parameter is the only parameter in a function, it gets all arguments passed to the function: it works just like the `.slice` solution we saw earlier, but you avoid the need for a complicated construct like `arguments`, and it's specified in the parameter list.
+You ((("rest parameters", id="rp2")))can now precede the last parameter in any JavaScript function with three dots, converting it into a special "rest parameter." When the rest parameter is the only parameter in a function, it gets all arguments passed to the function: it works just like the `.slice` solution we saw earlier, but you avoid the need for a complicated construct like `arguments`, and it's specified in the parameter list.
 
 [source,javascript]
 ----
@@ -880,10 +879,10 @@ console.log(all)
 
 Note that the spread operator isn't limited to arrays and `arguments`. The spread operator can be used with any iterable object. Iterable is a protocol in ES6 that allows you to turn any object into something that can be iterated over. We'll research the ((("iterable protocol")))iterable protocol in <<iteration-and-flow-control>>.
 
-[role="pagebreak-before"]
+
 .Shifting and Spreading
 ****
-When you want to extract an element or two from the beginning of an array, the common approach is to (((".shift()", primary-sortas="shift")))use `.shift`. While functional, the following snippet of code can be hard to understand at a glance, because it uses `.shift` twice to grab a different item from the beginning of the `list` each time. The focus is, like in many other pre-ES6 situations, placed on getting the language to do what we want.
+When you want to extract an element or two from the beginning of an array, the common approach is to (((".shift()", primary-sortas="shift")))(((".shift()")))use `.shift`. While functional, the following snippet of code can be hard to understand at a glance, because it uses `.shift` twice to grab a different item from the beginning of the `list` each time. The focus is, like in many other pre-ES6 situations, placed on getting the language to do what we want.
 
 [source,javascript]
 ----
@@ -940,16 +939,16 @@ Another limitation of `.apply` is that combining it with the `new` keyword, when
 
 [source,javascript]
 ----
-new (Date.bind.apply(Date, [null, 2015, 11, 31]))
-// <- Thu Dec 31 2015
+new (Date.bind.apply(Date, [null, 2017, 11, 31]))
+// <- Thu Dec 31 2017
 ----
 
 As shown in the next snippet, the spread operator strips away all the complexity and we're only left with the important bits. It's a `new` instance, it uses `...` to spread a dynamic list of arguments over the function call, and it's a `Date`. ((("Date()")))That's it.
 
 [source,javascript]
 ----
-new Date(...[2015, 11, 31])
-// <- Thu Dec 31 2015
+new Date(...[2017, 11, 31])
+// <- Thu Dec 31 2017
 ----
 
 The following table summarizes the use cases we've discussed for the spread operator.
@@ -960,7 +959,7 @@ The following table summarizes the use cases we've discussed for the spread oper
 |Concatenation|`[1, 2].concat(more)`|`[1, 2, ...more]`
 |Push an array onto list|`list.push.apply(list, items)`|`list.push(...items)`
 |Destructuring|`a = list[0], other = list.slice(1)` | `[a, ...other] = list`
-|`new` and `apply`|`new (Date.bind.apply(Date, [null,2015,31,8]))`| `new Date(...[2015,31,8])`
+|`new` and `apply`|`new (Date.bind.apply(Date, [null,2017,11,31]))`| `new Date(...[2017,11,31])`
 |=======
 
 [[template_literals]]
@@ -1001,7 +1000,7 @@ It will be up to your coding style guides to decide how much logic you want to c
 [source,javascript]
 ----
 `The time and date is ${ new Date().toLocaleString() }.`
-// <- 'the time and date is 8/26/2015, 3:15:20 PM'
+// <- 'the time and date is 8/26/2017, 3:15:20 PM'
 ----
 
 You could interpolate mathematical operations.
@@ -1024,7 +1023,7 @@ Another perk of template literals is their multiline string representation ((("t
 
 ==== Multiline Template Literals
 
-Before ((("template literals", "multiline string representation", id="templ2msr")))((("mulitline strings", id="ms2")))((("strings, multiline", id="sm2")))template literals, if you wanted to represent strings in multiple lines of JavaScript, you had to resort to escaping, concatenation, arrays, or even elaborate hacks using comments. The following snippet summarizes some of the most common multiline string representations prior to ES6.
+Before ((("template literals", "multiline string representation", id="templ2msr")))((("multiline strings", id="ms2")))((("strings, multiline", id="sm2")))template literals, if you wanted to represent strings in multiple lines of JavaScript, you had to resort to escaping, concatenation, arrays, or even elaborate hacks using comments. The following snippet summarizes some of the most common multiline string representations prior to ES6.
 
 [source,javascript]
 ----
@@ -1034,8 +1033,8 @@ A second line\n\
 Then a third line'
 
 var concatenated =
-'The first line\n' `
-'A second line\n' `
+'The first line\n' +
+'A second line\n' +
 'Then a third line'
 
 var joined = [
@@ -1100,7 +1099,7 @@ The template we've just prepared would produce output like what's shown in the f
 </article>
 ----
 
-A downside when it comes to multiline template literals is indentation. The following example shows a typically indented piece of code with a template literal contained in a function. While we may have expected no indentation, the string is has four spaces of indentation.
+A downside when it comes to multiline template literals is indentation. The following example shows a typically indented piece of code with a template literal contained in a function. While we may have expected no indentation, the string has four spaces of indentation.
 
 [source,javascript]
 ----
@@ -1130,7 +1129,7 @@ function unindent(text) {
 }
 ----
 
-Sometimes, it might be a good idea to pre-process the results of interpolated expressions before inserting them into your templates. For these advanced kinds of use cases, it's possible to use another feature of template literals called tagged ((("template literals", "multiline string representation", startref="templ2msr")))((("mulitline strings", startref="ms2")))((("strings, multiline", startref="sm2")))templates.
+Sometimes, it might be a good idea to pre-process the results of interpolated expressions before inserting them into your templates. For these advanced kinds of use cases, it's possible to use another feature of template literals called _tagged templates_.((("template literals", "multiline string representation", startref="templ2msr")))((("multiline strings", startref="ms2")))((("strings, multiline", startref="sm2")))
 
 ==== Tagged Templates
 
@@ -1186,7 +1185,7 @@ var name = 'Maurice'
 var emotion = 'thrilled'
 var text = tag`Hello, ${ name }. I am ${ emotion } to meet you!`
 console.log(text)
-// <- 'Hello Maurice, I am thrilled to meet you!'
+// <- 'Hello, Maurice. I am thrilled to meet you!'
 ----
 
 Multiple use cases apply to tagged templates. One possible use case might be to make user input uppercase, making the string sound satirical. That's what the following piece of code does. We've modified `tag` slightly so that any interpolated strings are uppercased.
@@ -1195,13 +1194,13 @@ Multiple use cases apply to tagged templates. One possible use case might be to 
 ----
 function upper(parts, ...values) {
   return parts.reduce((all, part, index) =>
-  all + values[index - 1].toUpperCase() + part
+    all + values[index - 1].toUpperCase() + part
   )
 }
 var name = 'Maurice'
 var emotion = 'thrilled'
 upper`Hello, ${ name }. I am ${ emotion } to meet you!`
-// <- 'Hello MAURICE, I am THRILLED to meet you!'
+// <- 'Hello, MAURICE. I am THRILLED to meet you!'
 ----
 
 A decidedly more useful use case would be to sanitize expressions interpolated into your templates, automatically, using a tagged template. Given a template where all expressions are considered user input, we could use a hypothetical `sanitize` library to remove HTML tags and similar hazards, preventing cross-site scripting (XSS) attacks where users might inject malicious HTML into our websites.
@@ -1210,10 +1209,11 @@ A decidedly more useful use case would be to sanitize expressions interpolated i
 ----
 function sanitized(parts, ...values) {
   return parts.reduce((all, part, index) =>
-  all + sanitize(values[index - 1]) + part
+    all + sanitize(values[index - 1]) + part
   )
 }
-var comment = 'Evil comment<iframe src="http://evil.corp"></iframe>'
+var comment = 'Evil comment<iframe src="http://evil.corp">
+    </iframe>'
 var html = sanitized`<div>${ comment }</div>`
 console.log(html)
 // <- '<div>Evil comment</div>'
@@ -1225,7 +1225,7 @@ Phew, ((("template literals", "tagged templates", startref="tl2tt")))((("tagged 
 
 The `let` statement ((("let statements", id="lets2")))is one of the most well-known features in ES6. It works like a `var` statement, but it has different scoping rules.
 
-JavaScript has always had a complicated ruleset when it comes to scoping, driving many programmers crazy when they were first trying to figure out how variables work in JavaScript. Eventually, you discover ((("hoisting")))hoisting, and JavaScript starts making a bit more sense to you. Hoisting means that variables get pulled from anywhere they were declared in user code to the top of their scope. For example, see the following code.
+JavaScript has always had a complicated ruleset when it comes to scoping, driving many programmers crazy when they were first trying to figure out how variables work in JavaScript. Eventually, you discover ((("hoisting")))hoisting, and JavaScript starts making a bit more sense to you. _Hoisting_ means that variables get pulled from anywhere they were declared in user code to the top of their scope. For example, see the following code.
 
 [source,javascript]
 ----
@@ -1267,7 +1267,7 @@ console.log(deep)
 // <- 'This is available from outer scope.'
 ----
 
-With `var`, because of lexical scoping, one could still access the `deep` variable from outside those blocks, and not get an error. Sometimes it can be very useful to get errors in these situations, particularly if one or more of the following is trueL:
+With `var`, because of lexical scoping, one could still access the `deep` variable from outside those blocks, and not get an error. Sometimes it can be very useful to get errors in these situations, particularly if one or more of the following is true:
 
 - Accessing the inner variable breaks some sort of encapsulation principle in our code
 - The inner variable doesn't belong in the outer scope at all
@@ -1372,7 +1372,7 @@ console.log(readName())
 let name = 'Stephen Hawking'
 ----
 
-Note that the semantics for these examples doesn't change when `name` isn't actually assigned a value when initially declared. The next snippet throws as well, as it still tries to access `name` before leaving the TDZ.
+Note that the semantics for these examples don't change when `name` isn't actually assigned a value when initially declared. The next snippet throws as well, as it still tries to access `name` before leaving the TDZ.
 
 [source,javascript]
 ----
@@ -1428,7 +1428,7 @@ const pi = 3.1415
 const e // SyntaxError, missing initializer
 ----
 
-Besides the assignment when initializing a `const`, variables declared using a `const` statement can't be assigned to. Once a `const` is initialized, you can't change its value. Under strict mode, attempts to change a `const` variable will throw. Outside of strict mode, they'll fail silently as demonstrated by the following piece of code.
+Besides the assignment when initializing a `const`, variables declared using a `const` statement can't be assigned to. Once a `const` is initialized, you can't change its value. Under strict mode, attempts to change a `const` variable will throw. Outside of strict mode, they'll fail silently, as demonstrated by the following piece of code.
 
 [source,javascript]
 ----
@@ -1484,7 +1484,7 @@ Let's take a moment to discuss the merits of `const` and `let`.
 
 New ((("let statements", id="lsx2")))features should never be used for the sake of using new features. ES6 features should be used where they genuinely improve code readability and maintainability. The `let` statement is able to, in many cases, simplify pieces of code where you'd otherwise declare `var` statements at the top of a function just so that hoisting doesn't produce unexpected results. Using the `let` statement you'd be able to place your declarations at the top of a code block, instead of the top of the whole function, reducing the latency in mental trips to the top of the scope.
 
-Using the `const` statement is a great way to prevent accidents. The following piece of code is a plausibly error-prone scenario where we pass of a reference to an `items` variable to a `checklist` function, which then returns a `todo` API that in turn interacts with said `items` reference. When the `items` variable is changed to reference another list of items, we're in for a world of hurt—the `todo` API still works with the value `items` used to have, but `items` is referencing something else now.
+Using the `const` statement is a great way to prevent accidents. The following piece of code is a plausibly error-prone scenario where we pass a reference to an `items` variable off to a `checklist` function, which then returns a `todo` API that in turn interacts with said `items` reference. When the `items` variable is changed to reference another list of items, we're in for a world of hurt—the `todo` API still works with the value `items` used to have, but `items` is referencing something else now.
 
 [source,javascript]
 ----
@@ -1510,6 +1510,6 @@ A similar benefit of using the `const` statement is its ability to visually iden
 
 If we choose to default to using `const` and use `let` for variables that need to be reassigned, all variables will follow the same scoping rules, which makes code easier to reason about. The reason why `const` is sometimes proposed as the "default" variable declaration type is that it's the one that does the least: `const` prevents reassignment, follows block scoping, and the declared binding can't be accessed before the declaration statement is executed. The `let` statement allows reassignment, but behaves like `const`, so it naturally follows to choose `let` when we're in need of a reassignable variable.
 
-On the counterside, `var` is a more complex declaration because it is hard to use in code branches due to function scoping rules, it allows reassignment, and it can be accessed before the declaration statement is reached. The `var` statement is inferior to `const` and `let`, which do less, and is thus less prominent in modern JavaScript codebases.
+On the counter side, `var` is a more complex declaration because it is hard to use in code branches due to function scoping rules, it allows reassignment, and it can be accessed before the declaration statement is reached. The `var` statement is inferior to `const` and `let`, which do less, and is thus less prominent in modern JavaScript codebases.
 
 Throughout this book, we'll follow the practice of using `const` by default and `let` when reassignment is desirable. You can learn more about the rationale behind this choice ((("const statements", startref="cs2")))((("let statements", startref="lsx2")))in <<practical-considerations>>.

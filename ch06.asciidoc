@@ -46,7 +46,7 @@ proxy['something-else']
 // <- undefined
 ----
 
-As a complement to proxies, ES6 introduces a `Reflect` ((("Reflect")))built-in object. The traps in ES6 proxies are mapped one-to-one to the `Reflect` API: For every trap, there’s a matching reflection method in `Reflect`. These methods can be particularly useful when we want the default behavior of proxy traps, but we don't want to concern ourselves with the implementation of that behavior.
+As a complement to proxies, ES6 introduces a `Reflect` ((("Reflect")))built-in object. The traps in ES6 proxies are mapped one-to-one to the `Reflect` API: for every trap, there’s a matching reflection method in `Reflect`. These methods can be particularly useful when we want the default behavior of proxy traps, but we don't want to concern ourselves with the implementation of that behavior.
 
 In the following code snippet we use `Reflect.get` to provide the default behavior for `get` operations, while not worrying about accessing the `key` property in `target` by hand. While in this case the operation may seem trivial, the default behavior for other traps may be harder to remember and implement correctly. We can forward every parameter in the trap to the reflection API and return its result.
 
@@ -185,7 +185,7 @@ const proxy = concealWithPrefix(target)
 // expose proxy to consumers
 ----
 
-You might be tempted to argue that you could achieve the same behavior in ES5 simply by using variables privately scoped to the `concealWithPrefix` function, without the need for the `Proxy` itself. The difference is that proxies allow you to "privatize" property access dynamically. Without relying on `Proxy`, you couldn't mark every property that starts with an underscore as private. You could use `Object.freeze`​footnoteref:[object-freeze,The `Object.freeze` method prevents adding new properties, removing existing ones, and modifying property value references. Note that it doesn't make the values themselves immutable: their properties can still change provided `Object.freeze` isn't called on those objects as well.] on the object, but then you wouldn't be able to modify the property references yourself, either. Or you could define get and set accessors for every property, but then again you wouldn't be able to block access on every single property, only the ones you explicitly configured getters and ((("traps", startref="trap6")))((("set traps", startref="st6")))in ((("traps", "set traps", startref="trap6st")))((("proxies", "set traps and", startref="prox6sta")))setters for.
+You might be tempted to argue that you could achieve the same behavior in ES5 simply by using variables privately scoped to the `concealWithPrefix` function, without the need for the `Proxy` itself. The difference is that proxies allow you to "privatize" property access dynamically. Without relying on `Proxy`, you couldn't mark every property that starts with an underscore as private. You could use `Object.freeze`​footnoteref:[object-freeze,The `Object.freeze` method prevents adding new properties, removing existing ones, and modifying property value references. Note that it doesn't make the values themselves immutable: their properties can still change, provided `Object.freeze` isn't called on those objects as well.] on the object, but then you wouldn't be able to modify the property references yourself, either. Or you could define get and set accessors for every property, but then again you wouldn't be able to block access on every single property, only the ones you explicitly configured getters and ((("traps", startref="trap6")))((("set traps", startref="st6")))in ((("traps", "set traps", startref="trap6st")))((("proxies", "set traps and", startref="prox6sta")))setters for.
 
 ==== Schema Validation with Proxies
 
@@ -205,7 +205,7 @@ const validations = new Map()
 const validator = {
   set(target, key, value) {
     if (validations.has(key)) {
-      return validations[key](value)
+      validations.get(key)(value)
     }
     return Reflect.set(target, key, value)
   }
@@ -285,7 +285,7 @@ function revokeStorage(proxy) {
 }
 ----
 
-Given that `revoke` is available on the same scope where your `handler` traps are defined, you could set up unforgiving access rules such that if a consumer attempts to access a private property more than once you revoke their `proxy` ((("proxies", "revokable", startref="prox6r")))((("revokable proxies", startref="rp6")))access entirely.
+Given that `revoke` is available on the same scope where your `handler` traps are defined, you could set up unforgiving access rules such that if a consumer attempts to access a private property more than once, you revoke their `proxy` ((("proxies", "revokable", startref="prox6r")))((("revokable proxies", startref="rp6")))access entirely.
 
 === Proxy Trap Handlers
 
@@ -525,7 +525,7 @@ proxy._secretIngredient = 'salsa'
 // <- Error: Can't define private "_secretIngredient" property
 ----
 
-The `proxy` object is safely hiding `_secret` properties ((("_secret   properties")))behind a trap that guards them from definition through either `proxy[key] = value` or `Object.defineProperty(proxy, key, { value })`. If we factor in the previous traps we saw, we could prevent `_secret` properties from being read, written, queried, and ((("proxies", "defineProperty trap", startref="prox6defpt")))((("traps", "defineProperty trap", startref="t6defpt")))((("defineProperty trap", startref="defpt6")))created.
+The `proxy` object is safely hiding `_secret` properties ((("_secret   properties")))((("_secret   properties", primary-sortas="secret")))behind a trap that guards them from definition through either `proxy[key] = value` or `Object.defineProperty(proxy, key, { value })`. If we factor in the previous traps we saw, we could prevent `_secret` properties from being read, written, queried, and ((("proxies", "defineProperty trap", startref="prox6defpt")))((("traps", "defineProperty trap", startref="t6defpt")))((("defineProperty trap", startref="defpt6")))created.
 
 There's one more trap that can help conceal `_secret` properties.
 
@@ -697,7 +697,7 @@ console.log(proxy.hasOwnProperty('_secret'))
 
 When you're trying to hide things, it's best to have them try and behave as if they fell in some other category than the category they're actually in, thus concealing their behavior and passing it off for something else. Throwing, however, sends the wrong message when we want to conceal something: why does a property throw instead of return `undefined`? It must exist but be inaccessible. This is not unlike situations in HTTP API design where we might prefer to return "404 Not Found" responses for sensitive resources, such as an administration backend, when the user is unauthorized to access them, instead of the technically correct "401 Unauthorized" status code.
 
-When debugging concerns outweight security concerns, you should at least consider the `throw` statement. In any case, it's important to understand your use case in order to figure out the optimal and least surprising behavior for a given ((("getOwnPropertyDescriptor trap", startref="gopdt6")))((("proxies", "getOwnPropertyDescriptor trap", startref="prox6gopdt")))((("traps", "getOwnPropertyDescriptor trap", startref="t6gopdt")))component.
+When debugging concerns outweigh security concerns, you should at least consider the `throw` statement. In any case, it's important to understand your use case in order to figure out the optimal and least surprising behavior for a given ((("getOwnPropertyDescriptor trap", startref="gopdt6")))((("proxies", "getOwnPropertyDescriptor trap", startref="prox6gopdt")))((("traps", "getOwnPropertyDescriptor trap", startref="t6gopdt")))component.
 
 ==== apply Trap
 
@@ -805,7 +805,7 @@ console.log(proxy.test !== proxy.test)
 // <- true
 ----
 
-This could be resolved using a `WeakMap`. ((("WeakMap")))((("ES6 Maps", "WeakMap")))We'll go back to our `selfish` trap handler options, and move that into a factory function. Within that function we'll keep a `cache` of bound methods, so that we create the bound version of each function only once. While we're at it, we'll make our `selfish` function receive the `target` object we want to be proxying, so that the details of how we are binding every method become an implementation concern.
+This could be resolved using a `WeakMap`. ((("WeakMap")))((("ES6 maps", "WeakMap")))We'll go back to our `selfish` trap handler options, and move that into a factory function. Within that function we'll keep a `cache` of bound methods, so that we create the bound version of each function only once. While we're at it, we'll make our `selfish` function receive the `target` object we want to be proxying, so that the details of how we are binding every method become an implementation concern.
 
 [source,javascript]
 ----
@@ -916,7 +916,7 @@ Note that arrow functions can't be used as constructors, and thus we can't use t
 
 ==== getPrototypeOf Trap
 
-We can ((("getPrototypeOf trap", id="gptot6")))((("traps", "getPrototypeOf", id="t6gpto")))((("proxies", "getPrototypeOf trap", id="prox6gptot")))use the `handler.getPrototypeOf` method as a trap for all of the following operations:
+We can ((("getPrototypeOf trap", id="gptot6")))((("traps", "getPrototypeOf trap", id="t6gpto")))((("proxies", "getPrototypeOf trap", id="prox6gptot")))use the `handler.getPrototypeOf` method as a trap for all of the following operations:
 
 - `Object#__proto__` property
 - `Object#isPrototypeOf` method
@@ -975,11 +975,11 @@ console.log(proxy)
 // <- { 0: 'first', 1: 'second', length: 2 }
 ----
 
-Conversely to the `getPrototypeOf` trap, ((("getPrototypeOf trap", startref="gptot6")))((("traps", "getPrototypeOf", startref="t6gpto")))((("proxies", "getPrototypeOf trap", startref="prox6gptot")))there's `setPrototypeOf`.
+Conversely to the `getPrototypeOf` trap, ((("getPrototypeOf trap", startref="gptot6")))((("traps", "getPrototypeOf trap", startref="t6gpto")))((("proxies", "getPrototypeOf trap", startref="prox6gptot")))there's `setPrototypeOf`.
 
 ==== setPrototypeOf Trap
 
-There is an `Object.setPrototypeOf` ((("setPrototypeOf trap", id="sptot6")))((("traps", "setPrototypeOf", id="t6spto")))((("proxies", "setPrototypeOf trap", id="prox6sptot")))method in ES6 that can be used to change the prototype of an object into a reference to another object. It's considered the proper way of setting the prototype, as opposed to setting the special `__proto__` property, which is a feature that's supported in most browsers but was deprecated in ES6.
+There is an `Object.setPrototypeOf` ((("setPrototypeOf trap", id="sptot6")))((("traps", "setPrototypeOf trap", id="t6spto")))((("proxies", "setPrototypeOf trap", id="prox6sptot")))method in ES6 that can be used to change the prototype of an object into a reference to another object. It's considered the proper way of setting the prototype, as opposed to setting the special `__proto__` property, which is a feature that's supported in most browsers but was deprecated in ES6.
 
 Deprecation ((("deprecation")))means that browser vendors are discouraging the use of `__proto__`. In other contexts, deprecation also means that the feature might be removed in the future. The web platform, however, doesn't break backward compatibility, and `__proto__` is unlikely to ever be removed. That being said, deprecation also means you're discouraged from using the feature. Thus, using the `Object.setPrototypeOf` method is preferable to changing `__proto__` when we want to modify the underlying prototype for an object.
 
@@ -1018,7 +1018,7 @@ proxy.setPrototypeOf(proxy, base)
 // <- Error: Changing the prototype is forbidden
 ----
 
-In these cases, it's best to fail with an exception so that consumers can understand what is going on. By explicitly disallowing prototype changes, the consumer can start looking elsewhere. If we didn't throw an exception, the consumer could still eventually learn that the prototype isn't changing through debugging. You might as well save them ((("setPrototypeOf trap", startref="sptot6")))((("traps", "setPrototypeOf", startref="t6spto")))((("proxies", "setPrototypeOf trap", startref="prox6sptot")))from that pain!
+In these cases, it's best to fail with an exception so that consumers can understand what is going on. By explicitly disallowing prototype changes, the consumer can start looking elsewhere. If we didn't throw an exception, the consumer could still eventually learn that the prototype isn't changing through debugging. You might as well save them ((("setPrototypeOf trap", startref="sptot6")))((("traps", "setPrototypeOf trap", startref="t6spto")))((("proxies", "setPrototypeOf trap", startref="prox6sptot")))from that pain!
 
 ==== preventExtensions Trap
 
@@ -1093,4 +1093,4 @@ As we've learned over the last few pages, there are myriad use cases for proxies
 
 Proxies are an extremely powerful feature in ES6, with many potential applications, and they're well equipped for code instrumentation and introspection. However, they also have a significant performance impact in JavaScript engine execution as they're virtually impossible to optimize for. This makes proxies impractical for applications where speed is of the essence.
 
-At the same time it's easy to confuse consumers by providing complicated proxies that attempt to do too much. It may be a good idea to avoid them for most use cases, or at least develop consistent and uncomplicated access rules. Make sure you're not producing many side-effects in property access, which can lead to confusion even if properly ((("proxies", startref="prox6")))documented.
+At the same time it's easy to confuse consumers by providing complicated proxies that attempt to do too much. It may be a good idea to avoid them for most use cases, or at least develop consistent and uncomplicated access rules. Make sure you're not producing many side effects in property access, which can lead to confusion even if properly ((("proxies", startref="prox6")))documented.

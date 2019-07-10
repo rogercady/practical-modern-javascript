@@ -12,8 +12,7 @@
               encoding="UTF-8"/>
   <xsl:preserve-space elements="*"/>
 
-<!-- Do add border div for figure images in cookbook series -->
-<xsl:param name="figure.border.div" select="1"/>
+
 
 <!-- Generate separate footnote-call markers, so that we don't
        need to rely on AH counters to do footnote numbering -->

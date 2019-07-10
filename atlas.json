@@ -1,6 +1,8 @@
 {
   "branch": "master",
   "files": [
+    "cover.html",
+    "praise.html",
     "titlepage.html",
     "copyright.html",
     "toc.html",
@@ -21,7 +23,7 @@
   ],
   "formats": {
     "pdf": {
-      "version": "web",
+      "version": "print",
       "toc": true,
       "index": true,
       "syntaxhighlighting": true,

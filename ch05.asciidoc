@@ -1,7 +1,7 @@
 [[leveraging-ecmascript-collections]]
 == Leveraging ECMAScript Collections
 
-JavaScript data structures ((("ECMAScript", id="ecmas5")))are flexible enough that we're able to turn any object into a hash-map, where we map string keys to arbitrary values. For example, one might use an object to map npm package names to their metadata, as shown next.
+JavaScript data structures ((("ECMAScript (ES)", id="ecmas5")))are flexible enough that we're able to turn any object into a hash-map, where we map string keys to arbitrary values. For example, one might use an object to map npm package names to their metadata, as shown next.
 
 [source,javascript]
 ----
@@ -85,11 +85,11 @@ Let's plunge into their practical usage and inner workings.
 
 === Using ES6 Maps
 
-ES6 ((("ECMAScript", "using ES6 maps", id="ecma5ues6m")))((("ES6 maps", id="es5m")))introduces built-in collections, such as `Map`, meant to alleviate implementation of patterns such as those we outlined earlier when building our own hash-map from scratch. `Map` ((("Map", seealso="ES6 maps")))is a key/value data structure in ES6 that more naturally and efficiently lends itself to creating maps in JavaScript without the need for object literals.
+ES6 ((("ECMAScript (ES)", "using ES6 maps", id="ecma5ues6m")))((("ES6 maps", id="es5m")))introduces built-in collections, such as `Map`, meant to alleviate implementation of patterns such as those we outlined earlier when building our own hash-map from scratch. `Map` ((("Map", seealso="ES6 maps")))is a key/value data structure in ES6 that more naturally and efficiently lends itself to creating maps in JavaScript without the need for object literals.
 
 ==== First Look into ES6 Maps
 
-Here's how what we had earlier would have looked like when using ES6 maps. As you can see, the implementation details we've had to come up with for our custom ES5 hash-map are already built into `Map`, vastly simplifying our use case.
+Here's how what we had earlier would have looked when using ES6 maps. As you can see, the implementation details we've had to come up with for our custom ES5 hash-map are already built into `Map`, vastly simplifying our use case.
 
 [source,javascript]
 ----
@@ -301,7 +301,7 @@ console.log(map[Symbol.iterator] === map.entries)
 // <- true
 ----
 
-There are two other `Map` iterators you can leverage: `.keys()` (((".keys()", primary-sortas="keys")))and `.values()`. (((".values()", primary-sortas="values")))The first enumerates keys in a map while the second enumerates values, as opposed to `.entries()`, which enumerates key/value pairs. The following snippet illustrates the differences between all three methods.
+There are two other `Map` iterators you can leverage: `.keys()` (((".keys()", primary-sortas="keys")))(((".keys()")))and `.values()`. (((".values()", primary-sortas="values")))(((".values()")))The first enumerates keys in a map while the second enumerates values, as opposed to `.entries()`, which enumerates key/value pairs. The following snippet illustrates the differences between all three methods.
 
 [source,javascript]
 ----
@@ -314,7 +314,7 @@ console.log([...map.entries()])
 // <- [[1, 2], [3, 4], [5, 6]]
 ----
 
-Map entries are always iterated in insertion order. This contrasts with `Object.keys`, which is specified to follow an arbitrary order. Although, in practice, insertion order is typically preserved by JavaScript engines regardless of the specification.
+Map entries are always iterated in insertion order. This contrasts with `Object.keys`, which is specified to follow an arbitrary order. Although in practice, insertion order is typically preserved by JavaScript engines regardless of the specification.
 
 Maps have a `.forEach` method that's equivalent in behavior to that in ES5 `Array` objects. The signature is `(value, key, map)`, where `value` and `key` correspond to the current item in the iteration, while `map` is the map being iterated. Once again, keys do not get cast into strings in the case of `Map`, as demonstrated here.
 
@@ -333,7 +333,7 @@ map.forEach((value, key) => console.log(key, value))
 // <- { name: 'Kent' } 'is a person'
 ----
 
-Earlier, we brought up the ability of providing arbitrary object references as the key to a `Map` entry. Let's go into a concrete use case for that ((("ECMAScript", "using ES6 maps", startref="ecma5ues6m")))((("ES6 maps", startref="es5m")))API.
+Earlier, we brought up the ability of providing arbitrary object references as the key to a `Map` entry. Let's go into a concrete use case for that ((("ECMAScript (ES)", "using ES6 maps", startref="ecma5ues6m")))((("ES6 maps", startref="es5m")))API.
 
 ==== Hash-Maps and the DOM
 
@@ -421,13 +421,13 @@ function customThing(el) {
 }
 ----
 
-Maps aren't ((("ES6 maps", "hash maps and the DOM", startref="es5hmatdom")))((("DOM elements", "in maps", secondary-sortas="maps", startref="dom5im")))the only kind of built-in collection in ES6, there's also `WeakMap`, `Set`, and `WeakSet`. Let's proceed by digging into `WeakMap`.
+Maps aren't ((("ES6 maps", "hash maps and the DOM", startref="es5hmatdom")))((("DOM elements", "in maps", secondary-sortas="maps", startref="dom5im")))the only kind of built-in collection in ES6; there's also `WeakMap`, `Set`, and `WeakSet`. Let's proceed by digging into `WeakMap`.
 
 === Understanding and Using WeakMap
 
-For ((("WeakMap", id="wm5")))((("ES6 maps", "WeakMap", id="es5wm")))the most part, you can think of `WeakMap` as a subset of `Map`. The `WeakMap` collection has a reduced API surface with less affordances than what we could find in `Map`. Collections created using `WeakMap` are not iterable like `Map`, meaning there is no iterable protocol in `WeakMap`, no `WeakMap#entries`, no `WeakMap#keys`, no `WeakMap#values`, no `WeakMap#forEach` and no `WeakMap#clear` methods.
+For ((("WeakMap", id="wm5")))((("ES6 maps", "WeakMap", id="es5wm")))the most part, you can think of `WeakMap` as a subset of `Map`. The `WeakMap` collection has a reduced API surface with fewer affordances than what we could find in `Map`. Collections created using `WeakMap` are not iterable like `Map`, meaning there is no iterable protocol in `WeakMap`, no `WeakMap#entries`, no `WeakMap#keys`, no `WeakMap#values`, no `WeakMap#forEach`, and no `WeakMap#clear` methods.
 
-Another distinction found in `WeakMap` is that every `key` must be an object. This is in contrast with `Map` where, while object references were allowed as keys, they weren't enforced. Remember that `Symbol` is a value type, and as such, they're not allowed either.
+Another distinction found in `WeakMap` is that every `key` must be an object. This is in contrast with `Map`, where, while object references were allowed as keys, they weren't enforced. Remember that `Symbol` is a value type, and as such, isn't allowed either.
 
 [source,javascript]
 ----
@@ -439,7 +439,7 @@ map.set(Symbol(), 2)
 // <- TypeError
 ----
 
-In exchange for having a more limited feature set, `WeakMap` key references are weakly held, meaning that the objects referenced by `WeakMap` keys are subject to garbage collection if there are no references to them--other than weak references. This kind of behavior is useful when you have metadata about a `person`, for example, but you want the `person` to be garbage collected when and if the only reference back to `person` is their associated metadata. You can now keep that metadata in a `WeakMap` using `person` as the key.
+In exchange for having a more limited feature set, `WeakMap` key references are weakly held, meaning that the objects referenced by `WeakMap` keys are subject to garbage collection if there are no references to them--other than weak references. This kind of behavior is useful when you have metadata about a `person`, for example, but you want the `person` to be garbage-collected when and if the only reference back to `person` is their associated metadata. You can now keep that metadata in a `WeakMap` using `person` as the key.
 
 In that sense, a `WeakMap` is most useful when the component maintaining it doesn't own the mapped objects, but wants to assign its own information to them without modifying the original objects or their lifecycle; letting memory be reclaimed when, for example, a DOM node is removed from the document.
 
@@ -470,13 +470,13 @@ map.has(date)
 
 ==== Is WeakMap a Worse Map?
 
-The distinction that makes `WeakMap` worth the trouble is in its name. Given that `WeakMap` holds references to its keys weakly, those objects are subject to garbage collection if there are no other references to them other than as `WeakMap` keys. This is in contrast with `Map`, which holds strong object references, preventing `Map` keys and values from being garbage collected.
+The distinction that makes `WeakMap` worth the trouble is in its name. Given that `WeakMap` holds references to its keys weakly, those objects are subject to garbage collection if there are no other references to them other than as `WeakMap` keys. This is in contrast with `Map`, which holds strong object references, preventing `Map` keys and values from being garbage-collected.
 
-Correspondingly, use cases for `WeakMap` revolve around the need to specify metadata or extend an object while still being able to garbage collect that object if there are no other references to it. A perfect example might be the underlying implementation for `process.on('unhandledRejection')` in Node.js, which uses a `WeakMap` to keep track of rejected promises that weren't dealt with yet. By using `WeakMap`, the implementation prevents memory leaks because the `WeakMap` won't be grabbing onto the state related to those promises strongly. In this case, we have a simple map that weakly holds onto state, but is flexible enough to handle entries being removed from the map when promises are no longer referenced anywhere else.
+Correspondingly, use cases for `WeakMap` revolve around the need to specify metadata or extend an object while still being able to garbage-collect that object if there are no other references to it. A perfect example might be the underlying implementation for `process.on('unhandledRejection')` in Node.js, which uses a `WeakMap` to keep track of rejected promises that weren't dealt with yet. By using `WeakMap`, the implementation prevents memory leaks because the `WeakMap` won't be grabbing onto the state related to those promises strongly. In this case, we have a simple map that weakly holds onto state, but is flexible enough to handle entries being removed from the map when promises are no longer referenced anywhere else.
 
 Keeping data about DOM elements that should be released from memory when they're no longer of interest is another important use case, and in this regard using `WeakMap` is an even better solution to the DOM-related API caching solution we implemented earlier using `Map`.
 
-In so many words, then: no, `WeakMap` is definitely not worse than `Map`--they just cater to different ((("WeakMap", startref="wm5")))((("ES6 maps", "WeakMap", startref="es5wm")))use cases.
+In so many words, then: no, `WeakMap` is definitely not worse than ++Map++—they just cater to different ((("WeakMap", startref="wm5")))((("ES6 maps", "WeakMap", startref="es5wm")))use cases.
 
 === Sets in ES6
 
@@ -544,9 +544,9 @@ console.log([...set.entries()])
 // <- [['a', 'a'], ['b', 'b'], ['c', 'c']]
 ----
 
-The `Set#entries` method ((("Setentriesx")))is consistent with `Map#entries`, which ((("Mapentriesx")))returns an iterator of `[key, value]` pairs. Using `Set#entries` as the default iterator for `Set` collections wouldn't be valuable, since it's used in `for..of`, when spreading a `set`, and in `Array.from`. In all of those cases, you probably want to iterate over a sequence of values in the set, but not a sequence of `[value, value]` pairs.
+The `Set#entries` method ((("Set#entries")))is consistent with `Map#entries`, which ((("Map#entries")))returns an iterator of `[key, value]` pairs. Using `Set#entries` as the default iterator for `Set` collections wouldn't be valuable, since it's used in `for..of`, when spreading a `set`, and in `Array.from`. In all of those cases, you probably want to iterate over a sequence of values in the set, but not a sequence of `[value, value]` pairs.
 
-As demonstrated next, the default `Set` iterator ((("Setvaluesx")))uses `Set#values`, as opposed to `Map`, which defined its iterator ((("Mapxentriesx")))as `Map#entries`.
+As demonstrated next, the default `Set` iterator ((("Set#values")))uses `Set#values`, as opposed to `Map`, which defined its iterator as `Map#entries`.
 
 [source,javascript]
 ----
@@ -560,7 +560,7 @@ console.log(set[Symbol.iterator] === set.values)
 // <- true
 ----
 
-The `Set#keys` method ((("Setkeysx")))also returns an iterator for values, again for consistency, and it's in fact a reference to the `Set#values` iterator.
+The `Set#keys` method ((("Set#keys")))also returns an iterator for values, again for consistency, and it's in fact a reference to the `Set#values` iterator.
 
 [source,javascript]
 ----
@@ -670,7 +670,7 @@ function listOwnProperties(input) {
 }
 function isObject(value) {
   return Object.prototype.toString.call(value) ===
-  '[object Object]'
+    '[object Object]'
 }
 ----
 
@@ -690,4 +690,4 @@ function dommy(target) {
 
 Whatever the reason, whenever we want to keep flags associated with a DOM element without visibly altering that DOM element, `WeakSet` is probably the way to go. If instead you wanted to associate arbitrary data instead of a simple flag, then maybe you should use `WeakMap`. When it comes to deciding whether to use `Map`, `WeakMap`, `Set`, or `WeakSet`, there's a series of questions you should ask yourself. For instance, if you need to keep object-related data, then you should know to look at weak collections. If your only concern is whether something is present, then you probably need a `Set`. If you are looking to create a cache, you should probably ((("WeakSet", startref="ws5")))use a `Map`.
 
-Collections in ES6 provide built-in solutions for common use cases that were previously cumbersome to implement by users, such as the case of `Map`, or hard to execute correctly, as in the case of `WeakMap` where we allow references to be released if they're no longer interesting, avoiding memory ((("ES6 sets", startref="ess5")))((("Set", startref="set5")))((("ECMAScript", startref="ecmas5")))leaks.
+Collections in ES6 provide built-in solutions for common use cases that were previously cumbersome to implement by users, such as the case of `Map`, or hard to execute correctly, as in the case of `WeakMap`, where we allow references to be released if they're no longer interesting, avoiding memory ((("ES6 sets", startref="ess5")))((("Set", startref="set5")))((("ECMAScript (ES)", startref="ecmas5")))leaks.

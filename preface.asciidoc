@@ -1,17 +1,17 @@
 [preface]
 == Preface
 
-Back in 1988, when I was using FrontPage for all my web development needs at school, if someone had told me that I'd end up working on the web for a living, I would've probably chuckled. JavaScript has grown along with us in all the years since, and it's hard to imagine how the web could've thrived without it. Bit by bit, this book will give you a comprehensive picture of the modern JavaScript landscape.
+Back in 1998, when I was using FrontPage for all my web development needs at school, if someone had told me that I'd end up working on the web for a living, I would've probably chuckled. JavaScript has grown along with us in all the years since, and it's hard to imagine how the web could've thrived without it. Bit by bit, this book will give you a comprehensive picture of the modern JavaScript landscape.
 
 === Who Should Read This Book
 
-This book is meant for web developers, enthusiasts, and professionals with a working knowledge of plain JavaScript. These developers and anyone looking to further their understanding of the JavaScript language shall benefit from reading Modern JavaScript.
+This book is meant for web developers, enthusiasts, and professionals with a working knowledge of plain JavaScript. These developers and anyone looking to further their understanding of the JavaScript language shall benefit from reading _Practical Modern JavaScript_.
 
 === Why Modern JavaScript?
 
 The goal of this book is to provide an approachable way of learning the latest developments in JavaScript: ES6 and later. ES6 was a huge update to the language, and it came out around the same time as a streamlined specification development process. Around this time I wrote quite a few blog posts about the different features in ES6, which became a bit popular. There are quite a few other books on ES6 out there, but they're a little different from what I had in mind for a book on ES6 and beyond. This book tries to explain features in detail without getting caught up in the specification, its implementation details, or unlikely corner cases that would almost certainly need to be researched online if happened upon.
 
-Instead of extreme thoroughness, the book places its utmost focus in the learning process, having sorted its material in such an incremental way that you don't have to scan ahead in the book for the definition of something else. Armed with practical examples, Modern JavaScript goes beyond ES6 to capture the changes to the language since June 2015--when the ES6 specification was finalized--including async functions, object destructuring, dynamic imports, `Promise#finally`, and async generators.
+Instead of extreme thoroughness, the book places its utmost focus in the learning process, having sorted its material in such an incremental way that you don't have to scan ahead in the book for the definition of something else. Armed with practical examples, _Practical Modern JavaScript_ goes beyond ES6 to capture the changes to the language since June 2015--when the ES6 specification was finalized--including async functions, object rest/spread properties, dynamic imports, `Promise#finally`, and async generators.
 
 Lastly, this book has the goal of establishing a baseline we can take for granted in the rest of the Modular JavaScript series. After having learned the latest language features in this first book, we'll be all set to discuss modular design, testing, and deployment, without having to diverge into language features whenever they're used in a code example. This incremental and modular approach is meant to be pervasive across the series, each book, each chapter, and each section.
 
@@ -35,7 +35,7 @@ In <<classes-symbols-objects-and-decorators>>, we'll discuss the new `class` syn
 
 <<practical-considerations>>, the last chapter—dubbed "Practical Considerations”—is somewhat unconventional for books about programming languages. Rather than spreading my personal views throughout the book, I condensed them into the last chapter. Here you'll find reasoning behind how to decide when to use which kind of variable declaration or string literal quotation mark, advice on handling asynchronous code flows and whether using classes or proxies is a good idea, and a few more nuggets of insight.
 
-For those of you who are already somewhat familiar with ES6 and comfortable jumping around the pages in a book, I recommend reading <<iteration-and-flow-control>> in detail, as you should find the insight into flow control most valuable. Chapters pass:[<a data-type="xref" href="#built-in-improvements" data-xrefstyle="select:labelnumber">#built-in-improvements</a>] and pass:[<a data-type="xref" href="#javascript-modules" data-xrefstyle="select:labelnumber">#javascript-modules</a>] are also a must, since they provide details around the areas of ES6 that are less often discussed in the open. The last chapter will indubitably--regardless of whether you agree with the views expressed therein--challenge you to think deeply about what works and what doesn't in the context of JavaScript applications written under the wild new world order that is Modern JavaScript.
+For those of you who are already somewhat familiar with ES6 and comfortable jumping around the pages in a book, I recommend reading <<iteration-and-flow-control>> in detail, as you should find the insight into flow control most valuable. Chapters pass:[<a data-type="xref" href="#built-in-improvements-in-es6" data-xrefstyle="select:labelnumber">#built-in-improvements-in-es6</a>] and pass:[<a data-type="xref" href="#javascript-modules" data-xrefstyle="select:labelnumber">#javascript-modules</a>] are also a must, since they provide details around the areas of ES6 that are less often discussed in the open. The last chapter will indubitably--regardless of whether you agree with the views expressed therein--challenge you to think deeply about what works and what doesn't in the context of JavaScript applications written under the wild new world order that is modern JavaScript.
 
 === Conventions Used in This Book
 
@@ -65,11 +65,13 @@ pass:[<a href="http://oreilly.com/safari" class="orm:hideurl"><em class="hyperli
 
 Members have access to thousands of books, training videos, Learning Paths, interactive tutorials, and curated playlists from over 250 publishers, including O’Reilly Media, Harvard Business Review, Prentice Hall Professional, Addison-Wesley Professional, Microsoft Press, Sams, Que, Peachpit Press, Adobe, Focal Press, Cisco Press, John Wiley & Sons, Syngress, Morgan Kaufmann, IBM Redbooks, Packt, Adobe Press, FT Press, Apress, Manning, New Riders, McGraw-Hill, Jones & Bartlett, and Course Technology, among others.
 
-For more information, please visit pass:[<a href="http://oreilly.com/safari" class="orm:hideurl"><em>http://oreilly.com/safari</em></a>]. 
+For more information, please visit pass:[<a href="http://oreilly.com/safari" class="orm:hideurl"><em>http://oreilly.com/safari</em></a>].
 
+[role="pagebreak-before"]
 === How to Contact Us
 
 Please address comments and questions concerning this book to the publisher:
+
 
 ++++
 <ul class="simplelist">
@@ -97,9 +99,9 @@ Watch us on YouTube: link:$$http://www.youtube.com/oreillymedia$$[]
 
 === Acknowledgments
 
-Like virtually every human task ever carried out, Modern JavaScript was made possible only by building upon the work of others. I want to thank Nan Barber, my editor at O'Reilly, for her fantastic support along the ride of writing this book. Ally MacDonald, another editor at O'Reilly, helped me out in the early days of the project and is the foremost reason why Modular JavaScript became a book series, as she helped me conjure up a modular approach to teaching JavaScript.
+Like virtually every human task ever carried out, _Practical Modern JavaScript_ was made possible only by building upon the work of others. I want to thank Nan Barber, my editor at O'Reilly, for her fantastic support along the ride of writing this book. Ally MacDonald, another editor at O'Reilly, helped me out in the early days of the project and is the foremost reason why Modular JavaScript became a book series, as she helped me conjure up a modular approach to teaching JavaScript.
 
-This book had a phenomenal ensemble of technical reviewers. Many of these folks are on TC39, the technical committee devoted to pushing JavaScript forward, and it's deeply humbling that they gave up some of their time to help future-proof this book. As always, Mathias Bynens (ex-Opera) proved instrumental to proofing everything in the book with regards to Unicode standards and held my work to a high degree of consistency in terms of code snippets. Kent C. Dodds (TC39, PayPal) ingeniously offered video reviews where he identified weak spots and helped improve the book. Jordan Harband (TC39, Airbnb) came through with deep technical commentary about many of the JavaScript features discussed in the book, and along with Alex Russell (TC39, Google) helped me iron out the history of JavaScript and its standards body for the first chapter. Ingvar Stepanyan (Cloudflare) was also a sharp eye in identifying code issues and pinpointed mistakes around low-level aspects of the specification. Brian Terlson (TC39 editor, Microsoft) also helped out with timelines and details around TC39. Rod Vagg (Node.js) provided insight that lead to better code examples and more consistent code style throughout the book.
+This book had a phenomenal ensemble of technical reviewers. Many of these folks are on TC39, the technical committee devoted to pushing JavaScript forward, and it's deeply humbling that they gave up some of their time to help future-proof this book. As always, Mathias Bynens (TC39, Google) proved instrumental to proofing everything in the book with regards to Unicode standards and held my work to a high degree of consistency in terms of code snippets. Kent C. Dodds (TC39, PayPal) ingeniously offered video reviews where he identified weak spots and helped improve the book. Jordan Harband (TC39, Airbnb) came through with deep technical commentary about many of the JavaScript features discussed in the book, and along with Alex Russell (TC39, Google) helped me iron out the history of JavaScript and its standards body for the first chapter. Ingvar Stepanyan (Cloudflare) was also a sharp eye in identifying code issues and pinpointed mistakes around low-level aspects of the specification. Brian Terlson (TC39 editor, Microsoft) also helped out with timelines and details around TC39. Rod Vagg (Node.js) provided insight that led to better code examples and more consistent code style throughout the book.
 
 Brendan Eich (TC39, Brave CEO) provided a trove of insight into the early days of JavaScript and TC39, which proved essential to the development of the first chapter. And naturally, if not for him, you wouldn't be holding this book in your hands.
 
